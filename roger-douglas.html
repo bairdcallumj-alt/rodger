@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Who Was Roger Douglas?</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff7df;
+      background:
+        radial-gradient(circle at top left, rgba(255, 198, 87, 0.18), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(129, 58, 255, 0.25), transparent 35%),
+        linear-gradient(135deg, #12001f 0%, #230033 45%, #090012 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.75) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,209,116,0.45) 1px, transparent 1px);
+      background-size: 80px 80px, 130px 130px;
+      background-position: 0 0, 30px 60px;
+      opacity: 0.23;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.45));
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .page {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      position: relative;
+      padding: 80px 0;
+    }
+
+    .hero-inner {
+      max-width: 950px;
+      padding: 50px;
+      border: 1px solid rgba(255, 209, 116, 0.28);
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.07);
+      box-shadow: 0 0 60px rgba(255, 178, 62, 0.18), inset 0 0 35px rgba(255,255,255,0.04);
+      backdrop-filter: blur(16px);
+      animation: floatUp 1.2s ease both;
+    }
+
+
+
+    .top-nav {
+      position: fixed;
+      top: 22px;
+      left: 22px;
+      z-index: 20;
+    }
+
+    .back-button,
+    .bottom-button {
+      display: inline-block;
+      padding: 12px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 210, 114, 0.62);
+      background: rgba(18, 0, 31, 0.72);
+      color: #ffd36e;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      box-shadow: 0 0 24px rgba(255, 210, 114, 0.18);
+      backdrop-filter: blur(12px);
+      transition: transform 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .back-button:hover,
+    .bottom-button:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 209, 116, 0.12);
+      box-shadow: 0 0 35px rgba(255, 210, 114, 0.32);
+    }
+
+    .image-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .definition-list {
+      margin-top: 20px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .definition-point {
+      padding: 16px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 209, 116, 0.2);
+      background: rgba(14, 0, 30, 0.38);
+      color: #fff3d0;
+      font-size: clamp(1rem, 1.55vw, 1.14rem);
+      line-height: 1.55;
+    }
+
+    .bottom-nav {
+      text-align: center;
+      margin: -54px 0 90px;
+    }
+
+    .section-label {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 10px 18px;
+      border: 1px solid rgba(255, 210, 114, 0.55);
+      border-radius: 999px;
+      color: #ffd36e;
+      letter-spacing: 0.24em;
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-shadow: 0 0 15px rgba(255, 210, 114, 0.9);
+      background: rgba(255, 209, 116, 0.08);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 9vw, 8.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+      color: #fff4cc;
+      text-shadow: 0 0 25px rgba(255, 206, 110, 0.35);
+    }
+
+    .subtitle {
+      margin-top: 28px;
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+      color: #d9c7ff;
+      letter-spacing: 0.02em;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #ffd36e;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      opacity: 0.85;
+      animation: pulse 2s infinite;
+    }
+
+    .glow-line {
+      height: 1px;
+      width: 100%;
+      margin: 45px 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 210, 114, 0.95), transparent);
+      box-shadow: 0 0 22px rgba(255, 210, 114, 0.8);
+    }
+
+    .section {
+      min-height: 78vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 48px;
+      padding: 90px 0;
+    }
+
+    .section.reverse .text-card {
+      order: 2;
+    }
+
+    .section.reverse .image-panel {
+      order: 1;
+    }
+
+    .text-card,
+    .timeline,
+    .reflection {
+      border: 1px solid rgba(255, 209, 116, 0.22);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.075);
+      backdrop-filter: blur(14px);
+      padding: clamp(28px, 4vw, 52px);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.25);
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    .text-card:hover,
+    .timeline:hover,
+    .reflection:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 210, 114, 0.55);
+      box-shadow: 0 0 55px rgba(255, 186, 73, 0.15), 0 25px 90px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 4.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      color: #ffe7a3;
+      margin-bottom: 26px;
+    }
+
+    p {
+      font-size: clamp(1rem, 1.7vw, 1.23rem);
+      line-height: 1.75;
+      color: #eee2ff;
+    }
+
+    .image-panel {
+      min-height: 440px;
+      border-radius: 34px;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 209, 116, 0.28);
+      box-shadow: 0 30px 90px rgba(0,0,0,0.4);
+      background: rgba(255,255,255,0.06);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .image-panel:hover {
+      transform: scale(1.025);
+      box-shadow: 0 0 65px rgba(255, 199, 87, 0.25), 0 30px 90px rgba(0,0,0,0.45);
+    }
+
+    .image-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.05);
+    }
+
+    .image-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.65));
+      pointer-events: none;
+    }
+
+
+    .quote-section {
+      min-height: 70vh;
+      display: grid;
+      place-items: center;
+      padding: 110px 0;
+      text-align: center;
+    }
+
+    .quote-box {
+      width: 100%;
+      padding: clamp(38px, 7vw, 90px);
+      border-radius: 38px;
+      border: 1px solid rgba(255, 209, 116, 0.34);
+      background:
+        radial-gradient(circle at top, rgba(255, 210, 114, 0.16), transparent 38%),
+        rgba(255, 255, 255, 0.075);
+      box-shadow: 0 0 85px rgba(255, 196, 75, 0.16);
+      backdrop-filter: blur(16px);
+    }
+
+    .quote-word {
+      font-size: clamp(3.3rem, 12vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+      color: #ffd36e;
+      text-shadow: 0 0 30px rgba(255, 210, 114, 0.8), 0 0 80px rgba(126, 74, 255, 0.5);
+      margin-bottom: 24px;
+    }
+
+    .quote-box p {
+      max-width: 830px;
+      margin: 0 auto;
+      color: #fff3d0;
+      font-size: clamp(1.08rem, 2vw, 1.45rem);
+    }
+
+    .timeline {
+      margin: 70px 0 120px;
+    }
+
+    .timeline h2 {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .timeline-item {
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 209, 116, 0.22);
+      background: rgba(14, 0, 30, 0.45);
+      transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 209, 116, 0.08);
+      border-color: rgba(255, 209, 116, 0.55);
+    }
+
+    .timeline-year {
+      color: #ffd36e;
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      margin-bottom: 14px;
+    }
+
+    .timeline-item h3 {
+      color: #fff4cc;
+      font-size: 1.45rem;
+      margin-bottom: 14px;
+    }
+
+    .timeline-item p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .reflection {
+      margin: 0 0 100px;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(255, 209, 116, 0.1), rgba(132, 74, 255, 0.1)),
+        rgba(255,255,255,0.07);
+    }
+
+    .reflection p {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+    }
+
+    .footer {
+      padding: 36px 0 60px;
+      text-align: center;
+      color: rgba(255, 247, 223, 0.65);
+      font-size: 0.9rem;
+    }
+
+    @keyframes floatUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+    }
+
+    @media (max-width: 850px) {
+      .hero-inner {
+        padding: 34px 22px;
+      }
+
+      .section,
+      .section.reverse {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding: 60px 0;
+      }
+
+      .section.reverse .text-card,
+      .section.reverse .image-panel {
+        order: initial;
+      }
+
+      .image-panel {
+        min-height: 320px;
+      }
+
+      .timeline-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .top-nav {
+        position: static;
+        width: min(1180px, 92%);
+        margin: 18px auto 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav"><a class="back-button" href="index.html">← Back to Contents Page</a></nav>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="section-label">SECTION 02</div>
+        <h1>Who Was Roger Douglas?</h1>
+        <p class="subtitle">A simple guide to the job, the power, and the debate behind Rogernomics.</p>
+      </div>
+      <div class="scroll-hint">SCROLL TO EXPLORE</div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <section class="section">
+      <div class="text-card">
+        <h2>What Is a Finance Minister?</h2>
+        <p>
+          A finance minister is the person in government who helps make the big decisions about a country’s money.
+          They do not own the money, and they do not make every decision alone, but they are one of the key people who
+          helps decide how the government will collect money, spend money, borrow money, and plan for the future.
+        </p>
+        <div class="definition-list">
+          <div class="definition-point"><strong>Collecting money:</strong> helping decide how taxes and other government income should work.</div>
+          <div class="definition-point"><strong>Spending money:</strong> helping decide how much goes to schools, hospitals, roads, police, benefits, and other public services.</div>
+          <div class="definition-point"><strong>Planning the economy:</strong> helping guide choices about jobs, prices, trade, debt, and whether the country is growing or struggling.</div>
+        </div>
+      </div>
+
+      <div class="image-wrap">
+        <div class="image-panel">
+          <img src="roger-image1.jpg" alt="Roger Douglas documentary image placeholder" />
+        </div>
+</div>
+    </section>
+
+    <section class="section reverse">
+      <div class="text-card">
+        <h2>A Call for Change</h2>
+        <p>
+          Roger Douglas believed New Zealand’s economy was struggling and needed major change. He argued that the
+          government was controlling too many prices, businesses, and industries, and that this was holding the country back.
+        </p>
+        <p style="margin-top: 18px;">
+          His answer was to make fast changes: fewer rules, more competition, less government support for some industries,
+          and stronger links with the world economy.
+        </p>
+      </div>
+
+      <div class="image-wrap">
+        <div class="image-panel">
+          <img src="roger-image2.jpg" alt="1980s New Zealand economy image placeholder" />
+        </div>
+</div>
+    </section>
+
+    <section class="quote-section">
+      <div class="quote-box">
+        <div class="section-label">KEY TERM</div>
+        <div class="quote-word">“Rogernomics”</div>
+        <p>
+          The economic changes Roger Douglas introduced became known as Rogernomics.
+          The name joined “Roger” with “economics” because his ideas changed the way New Zealand managed money, businesses, and government spending.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="text-card">
+        <h2>Fast Changes, Big Effects</h2>
+        <p>
+          These changes happened quickly and affected many parts of New Zealand life. Some people believed
+          Rogernomics helped modernise New Zealand, while others believed the changes hurt workers and communities.
+        </p>
+      </div>
+
+      <div class="image-wrap">
+        <div class="image-panel">
+          <img src="roger-image3.jpg" alt="New Zealand social change image placeholder" />
+        </div>
+</div>
+    </section>
+
+    <div class="glow-line"></div>
+
+    <section class="diagram-section">
+      <div class="quote-box" style="margin-bottom: 90px;">
+        <div class="section-label">VISUAL EXPLANATION</div>
+        <h2 style="margin-bottom: 28px;">Before Roger vs After Roger</h2>
+        <p style="margin-bottom: 40px; max-width: 850px; margin-left: auto; margin-right: auto;">
+          This diagram helps explain how New Zealand changed during the 1980s. Before Rogernomics,
+          the government controlled many decisions. After the reforms, ideas like competition,
+          choice, supply, and demand became more important.
+        </p>
+
+        <div class="image-wrap" style="max-width: 1200px; margin: 0 auto;">
+          <div class="image-panel" style="min-height: 700px;">
+            <img src="roger-diagram1.jpg" alt="Before Roger vs After Roger infographic" />
+          </div>
+</div>
+      </div>
+    </section>
+
+    <section class="timeline">
+      <h2>1980s Economic Change</h2>
+      <div class="timeline-grid">
+        <div class="timeline-item">
+          <div class="timeline-year">STEP ONE</div>
+          <h3>The Problem</h3>
+          <p>Douglas believed the economy was struggling and needed a new direction.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">STEP TWO</div>
+          <h3>The Changes</h3>
+          <p>Rules and controls were reduced so businesses could make more of their own decisions.</p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-year">STEP THREE</div>
+          <h3>The Debate</h3>
+          <p>People disagreed about whether the changes made New Zealand stronger or hurt ordinary communities.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reflection">
+      <div class="section-label">REFLECT</div>
+      <h2>Why do people still debate Rogernomics today?</h2>
+      <p>
+        People still debate Rogernomics because the changes were large, fast, and personal. They shaped jobs,
+        businesses, communities, and the way New Zealand thought about the economy. For some people, Rogernomics
+        meant modernisation. For others, it meant pressure, uncertainty, and loss.
+      </p>
+    </section>
+
+    <div class="bottom-nav">
+      <a class="bottom-button" href="index.html">← Back to Contents Page</a>
+    </div>
+
+    <footer class="footer">
+      Interactive History Documentary | Year 7–8
+    </footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roger and His Wishes</title>
+  <style>
+    :root{
+      --bg:#12061f;--bg2:#1d0734;--gold:#ffd166;--cyan:#45f3ff;--pink:#ff4fd8;
+      --red:#ff5f6d;--green:#5cff9d;--text:#f8ecff;--muted:#cdb8e8;
+      --border:rgba(255,209,102,.28);--shadow:0 0 35px rgba(255,209,102,.18);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);overflow-x:hidden;
+      background:radial-gradient(circle at 10% 10%,rgba(255,79,216,.18),transparent 35%),
+      radial-gradient(circle at 85% 15%,rgba(69,243,255,.14),transparent 34%),
+      linear-gradient(135deg,var(--bg),var(--bg2) 55%,#08030f);
+    }
+    body:before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;opacity:.16;
+      background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(var(--gold) 1px,transparent 1px);
+      background-size:70px 70px,120px 120px;background-position:0 0,30px 45px;
+      animation:drift 35s linear infinite;
+    }
+    body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(circle at center,transparent 0,rgba(0,0,0,.46) 80%)}
+    @keyframes drift{from{transform:translateY(0)}to{transform:translateY(-140px)}}
+    .page{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    header.hero{min-height:94vh;display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:center;padding:80px 0 60px}
+    .section-label{display:inline-block;color:var(--gold);border:1px solid rgba(255,209,102,.42);border-radius:999px;padding:10px 18px;letter-spacing:.28em;font-size:.82rem;font-weight:800;box-shadow:0 0 22px rgba(255,209,102,.24);background:rgba(255,255,255,.06);text-transform:uppercase}
+    h1{margin:22px 0 18px;font-size:clamp(3rem,8vw,7.6rem);line-height:.9;letter-spacing:-.075em;text-transform:uppercase;text-shadow:0 0 30px rgba(255,209,102,.22),0 0 60px rgba(255,79,216,.16)}
+    h1 span{color:var(--gold);display:block}
+    .subtitle{max-width:760px;color:var(--muted);font-size:clamp(1.05rem,2vw,1.35rem);line-height:1.6}
+    .gold-line{height:2px;width:min(760px,80%);margin:30px 0;background:linear-gradient(90deg,var(--gold),var(--cyan),var(--pink),transparent);box-shadow:0 0 18px rgba(255,209,102,.7)}
+    .hero-card,.card,.quote,.wish-card,.image-frame,.activity,.export-panel{background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035));border:1px solid var(--border);border-radius:28px;box-shadow:var(--shadow);backdrop-filter:blur(14px)}
+    .hero-card{min-height:560px;padding:32px;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
+    .lamp{font-size:6rem;filter:drop-shadow(0 0 24px rgba(255,209,102,.55));margin-bottom:20px}
+    .hero-card h2{color:var(--gold);margin-bottom:14px}
+    .wish-nav{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}
+    .wish-nav a{text-decoration:none;color:white;padding:18px;border-radius:22px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);font-weight:900;transition:.25s ease}
+    .wish-nav a:hover{transform:translateY(-5px);border-color:rgba(255,209,102,.55);box-shadow:0 0 22px rgba(255,209,102,.18)}
+    section{padding:72px 0}
+    h2{margin:0 0 18px;font-size:clamp(2rem,4vw,4rem);line-height:1;letter-spacing:-.045em;text-transform:uppercase}
+    h3{margin:0 0 14px;font-size:1.45rem;color:var(--gold)}
+    p,li{color:var(--muted);font-size:1.05rem;line-height:1.72}
+    strong{color:#fff}
+    .mini-label{color:var(--cyan);letter-spacing:.18em;text-transform:uppercase;font-size:.78rem;font-weight:900;margin-bottom:12px}
+    .quote{padding:34px;border-left:5px solid var(--gold)}
+    .quote p{font-size:clamp(1.2rem,2vw,1.55rem);color:white;margin:0}
+    .wish-card{padding:clamp(24px,4vw,46px);position:relative;overflow:hidden}
+    .wish-card:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 18% 15%,rgba(255,209,102,.16),transparent 34%),radial-gradient(circle at 85% 40%,rgba(69,243,255,.11),transparent 35%);pointer-events:none;z-index:-1}
+    .wish-layout{display:grid;grid-template-columns:1fr 1.05fr;gap:28px;align-items:start}
+    .image-frame{min-height:620px;overflow:hidden;position:relative;background:radial-gradient(circle at 30% 20%,rgba(255,209,102,.16),transparent 35%),rgba(255,255,255,.04)}
+    .image-frame img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;display:block}
+    .image-caption{position:absolute;left:18px;bottom:18px;right:18px;padding:14px 16px;border-radius:16px;background:rgba(7,3,15,.74);border:1px solid rgba(255,255,255,.12);color:var(--gold);font-weight:900;letter-spacing:.06em;font-size:.85rem;text-transform:uppercase}
+    .promise-catch{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}
+    .panel{padding:22px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+    .panel.promise{border-color:rgba(92,255,157,.38);box-shadow:0 0 18px rgba(92,255,157,.08)}
+    .panel.catch{border-color:rgba(255,95,109,.42);box-shadow:0 0 18px rgba(255,95,109,.08)}
+    .panel h3{font-size:1.25rem;margin-bottom:12px}
+    .example{padding:24px;border-radius:24px;background:rgba(0,0,0,.18);border:1px solid rgba(255,209,102,.24);margin-top:22px}
+    .activity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .activity{padding:26px;transition:.25s ease}
+    .activity:hover{transform:translateY(-6px);border-color:rgba(69,243,255,.5);box-shadow:0 0 42px rgba(69,243,255,.15),0 0 32px rgba(255,209,102,.16)}
+    .activity-number{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#180820;font-weight:900;box-shadow:0 0 22px rgba(255,209,102,.45);margin-bottom:18px}
+    .judge-options{display:grid;gap:14px;margin-top:18px}
+    .judge-option{padding:16px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:.2s ease;color:var(--muted);line-height:1.45}
+    .judge-option:hover,.judge-option.selected{border-color:rgba(255,209,102,.6);background:rgba(255,209,102,.1);color:white;transform:translateY(-3px)}
+    textarea{width:100%;min-height:150px;margin-top:18px;resize:vertical;border-radius:20px;border:1px solid rgba(69,243,255,.24);background:rgba(255,255,255,.07);color:white;padding:16px;font-size:1rem;line-height:1.5;outline:none;font-family:Arial,Helvetica,sans-serif}
+    textarea::placeholder,.student-details input::placeholder{color:rgba(248,236,255,.55)}
+    .export-panel{padding:clamp(26px,5vw,46px)}
+    .student-details{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .student-details input{width:100%;border:1px solid rgba(69,243,255,.24);border-radius:16px;background:rgba(255,255,255,.07);color:white;padding:14px;font-size:1rem;outline:none}
+    .rating-control{display:grid;gap:14px;margin:22px 0}
+    .rating-number{text-align:center;color:var(--gold);font-size:3rem;font-weight:900;line-height:1;text-shadow:0 0 18px rgba(255,209,102,.28)}
+    input[type=range]{width:100%;appearance:none;height:14px;border-radius:999px;background:linear-gradient(90deg,var(--pink),var(--gold),var(--cyan));outline:none;box-shadow:0 0 18px rgba(255,209,102,.25)}
+    input[type=range]::-webkit-slider-thumb{appearance:none;width:34px;height:34px;border-radius:50%;background:white;border:3px solid var(--gold);box-shadow:0 0 18px rgba(255,209,102,.5);cursor:pointer}
+    .export-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+    .export-btn{border:none;border-radius:16px;padding:13px 18px;background:linear-gradient(145deg,rgba(255,209,102,.18),rgba(69,243,255,.12));border:1px solid rgba(255,209,102,.28);color:white;font-weight:900;cursor:pointer;transition:.3s ease}
+    .export-btn:hover{transform:translateY(-3px);box-shadow:0 0 20px rgba(255,209,102,.2)}
+    .export-preview{min-height:110px;border-radius:18px;background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.1);padding:16px;color:var(--muted);white-space:pre-wrap;line-height:1.5;font-family:monospace;overflow-x:auto;margin-top:16px}
+    .back-link{display:inline-block;margin-top:30px;color:var(--gold);font-weight:900;text-decoration:none;border:1px solid rgba(255,209,102,.34);border-radius:999px;padding:12px 18px;background:rgba(255,255,255,.06)}
+    .back-link:hover{box-shadow:0 0 18px rgba(255,209,102,.2)}
+    footer{padding:36px 0 60px;color:rgba(248,236,255,.58);text-align:center;font-size:.9rem}
+    @media(max-width:940px){header.hero,.wish-layout,.activity-grid,.promise-catch,.student-details{grid-template-columns:1fr}.hero-card,.image-frame{min-height:420px}.wish-nav{grid-template-columns:1fr}section{padding:52px 0}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <div class="section-label">Section 04</div>
+        <h1>Roger and <span>His Wishes</span></h1>
+        <p class="subtitle">Roger Douglas believed New Zealand needed bold economic changes. Like wishes in a story, each reform promised to solve a problem — but every wish came with a catch.</p>
+        <div class="gold-line"></div>
+        <p class="subtitle"><strong>Big question:</strong> Were Roger's wishes worth making?</p>
+        <div class="wish-nav">
+          <a href="#wish-one">Wish One<br>Sell businesses</a>
+          <a href="#wish-two">Wish Two<br>Attract investment</a>
+          <a href="#wish-three">Wish Three<br>Stop paying so much</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div>
+          <div class="lamp">🏺</div>
+          <h2>Every wish has a catch</h2>
+          <p>Read each wish, compare the promise and the catch, then decide whether the reform was worth the cost.</p>
+        </div>
+      </div>
+    </header>
+
+    <section><div class="quote"><p>Roger Douglas did not just want small changes. He wanted New Zealand to move quickly from an old protected economy into a modern global economy.</p></div></section>
+
+    <section id="wish-one">
+      <div class="wish-layout">
+        <div class="image-frame"><img src="roger-wish-1.jpg" alt="Roger's first wish infographic" onerror="this.style.display='none'"><div class="image-caption">Image slot: roger-wish-1.jpg</div></div>
+        <article class="wish-card">
+          <div class="mini-label">Wish One</div>
+          <h2>I Wish Someone Would Buy Our Businesses</h2>
+          <p>By the 1980s, the New Zealand Government owned many important businesses. These included telecommunications networks, railways, airlines, banks, and other services. Roger Douglas believed that the government should not be running so many businesses. He argued that private companies would operate them more efficiently and that selling them would bring money into the country.</p>
+          <div class="promise-catch">
+            <div class="panel promise"><h3>🎁 The Promise</h3><p>Selling government businesses would bring in money, reduce government debt, and encourage companies to become more efficient. Supporters believed services would improve because businesses would need to compete and satisfy customers.</p></div>
+            <div class="panel catch"><h3>⚠️ The Catch</h3><p>Once a business is sold, the government no longer controls it. New owners might reduce staff, close services that are not profitable, or increase prices. Some New Zealanders worried that important national assets could end up owned by overseas companies rather than the public.</p></div>
+          </div>
+          <div class="example"><h3>📍 Example: KiwiRail</h3><p>New Zealand's rail network was gradually sold and broken up during the reform era. Over time, parts of the rail system struggled, and the government eventually had to buy much of it back. Today, KiwiRail is once again owned by the government.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="wish-two">
+      <div class="wish-layout">
+        <article class="wish-card">
+          <div class="mini-label">Wish Two</div>
+          <h2>I Wish More People Would Invest in New Zealand</h2>
+          <p>Roger Douglas believed New Zealand needed to become more connected to the rest of the world. He wanted overseas investors to see New Zealand as a place where they could confidently do business. Changes such as opening financial markets and allowing the New Zealand dollar to float were designed to attract investment from around the world.</p>
+          <div class="promise-catch">
+            <div class="panel promise"><h3>🎁 The Promise</h3><p>More investment meant more money entering New Zealand. Supporters believed this would help businesses grow, create opportunities, and make New Zealand a more successful trading nation.</p></div>
+            <div class="panel catch"><h3>⚠️ The Catch</h3><p>When overseas money comes in, overseas influence can come with it. Some New Zealanders worried that more foreign investment would lead to foreign ownership of important assets, rising property prices, and an economy that became more vulnerable to events happening overseas.</p></div>
+          </div>
+          <div class="example"><h3>📍 Example: House Prices</h3><p>Over the decades following the reforms, New Zealand became an attractive place for investment. While many factors influence house prices, critics argue that greater flows of investment into property helped push prices higher. Rising house prices benefited many homeowners but made it harder for younger New Zealanders to buy their first home.</p></div>
+        </article>
+        <div class="image-frame"><img src="roger-wish-2.jpg" alt="Roger's second wish infographic" onerror="this.style.display='none'"><div class="image-caption">Image slot: roger-wish-2.jpg</div></div>
+      </div>
+    </section>
+
+    <section id="wish-three">
+      <div class="wish-layout">
+        <div class="image-frame"><img src="roger-wish-3.jpg" alt="Roger's third wish infographic" onerror="this.style.display='none'"><div class="image-caption">Image slot: roger-wish-3.jpg</div></div>
+        <article class="wish-card">
+          <div class="mini-label">Wish Three</div>
+          <h2>I Wish the Government Would Stop Paying for So Much</h2>
+          <p>For many years the government had supported industries through subsidies and had promised expensive future spending programmes. Roger Douglas believed that some of these commitments were becoming too costly and that the government needed to reduce its role in the economy.</p>
+          <div class="promise-catch">
+            <div class="panel promise"><h3>🎁 The Promise</h3><p>Reducing government spending could lower borrowing, reduce debt, and encourage businesses to stand on their own without government support. Supporters argued that New Zealand would become stronger and more financially sustainable.</p></div>
+            <div class="panel catch"><h3>⚠️ The Catch</h3><p>When government support is removed, somebody loses it. Some businesses closed when subsidies ended, some workers lost their jobs, and some communities struggled during the transition. Critics argued that the costs of reform were not shared equally across society.</p></div>
+          </div>
+          <div class="example"><h3>📍 Example: Farming Subsidies</h3><p>Farmers had received government support through subsidies. Removing subsidies reduced government spending and pushed farms to stand on their own. Some farmers adapted and became more efficient, while others struggled and some farms closed.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="mini-label">Student tasks</div><h2>Activities</h2>
+      <div class="activity-grid">
+        <div class="activity"><div class="activity-number">1</div><h3>Choose the biggest promise</h3><p>Which wish had the strongest promise: selling businesses, attracting investment, or reducing government support? Explain why.</p></div>
+        <div class="activity"><div class="activity-number">2</div><h3>Choose the biggest catch</h3><p>Which wish had the most serious catch? Think about job losses, foreign ownership, rising house prices, and communities under pressure.</p></div>
+        <div class="activity"><div class="activity-number">3</div><h3>Make a judgement</h3><p>Were Roger's wishes worth making? Use at least one promise and one catch in your answer.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="export-panel">
+        <div class="mini-label">Final judgement</div><h2>Were the wishes worth it?</h2>
+        <p>Select the statement that best matches your view, then explain your thinking.</p>
+        <div class="judge-options" id="judgeOptions">
+          <div class="judge-option" data-choice="Yes, the wishes were worth it.">Yes, the wishes were worth it.</div>
+          <div class="judge-option" data-choice="No, the catches were too serious.">No, the catches were too serious.</div>
+          <div class="judge-option" data-choice="Some wishes were worth it, but others were not.">Some wishes were worth it, but others were not.</div>
+        </div>
+        <textarea id="studentResponse" placeholder="Explain your answer using evidence from at least one wish, one promise, one catch, and one example."></textarea>
+        <div class="rating-control">
+          <p><strong>How well do you understand Roger's three wishes?</strong></p>
+          <div class="rating-number" id="understandingNumber">5</div>
+          <input type="range" min="1" max="10" value="5" id="understandingSlider">
+        </div>
+        <div class="student-details">
+          <input id="studentName" type="text" placeholder="Student name">
+          <input id="studentClass" type="text" placeholder="Class / Room">
+          <input id="teacherEmail" type="email" placeholder="Teacher email optional">
+        </div>
+        <div class="export-buttons">
+          <button class="export-btn" id="previewWorkBtn">👀 Preview My Work</button>
+          <button class="export-btn" id="downloadCsvBtn">⬇️ Download CSV</button>
+          <button class="export-btn" id="emailWorkBtn">✉️ Open Email</button>
+        </div>
+        <div class="export-preview" id="exportPreview">Your exported answers will appear here.</div>
+        <a class="back-link" href="index.html">← Back to contents page</a>
+      </div>
+    </section>
+
+    <footer>Roger Douglas Series • Roger and His Wishes • Manurewa Intermediate</footer>
+  </main>
+
+  <script>
+    let selectedChoice='';
+    document.querySelectorAll('.judge-option').forEach(option=>{
+      option.addEventListener('click',()=>{
+        document.querySelectorAll('.judge-option').forEach(item=>item.classList.remove('selected'));
+        option.classList.add('selected');
+        selectedChoice=option.dataset.choice;
+      });
+    });
+    const understandingSlider=document.getElementById('understandingSlider');
+    const understandingNumber=document.getElementById('understandingNumber');
+    understandingSlider.addEventListener('input',()=>{understandingNumber.textContent=understandingSlider.value;});
+    function buildCsvRows(){
+      const student=document.getElementById('studentName').value.trim();
+      const room=document.getElementById('studentClass').value.trim();
+      const email=document.getElementById('teacherEmail').value.trim();
+      const response=document.getElementById('studentResponse').value.trim();
+      const understanding=understandingSlider.value;
+      return [
+        ['Student Name','Class / Room','Teacher Email','Judgement Choice','Written Response','Understanding Rating'],
+        [student,room,email,selectedChoice,response,understanding]
+      ];
+    }
+    function escapeCsv(value){return `"${String(value).replaceAll('"','""')}"`;}
+    function buildCsv(){return buildCsvRows().map(row=>row.map(escapeCsv).join(',')).join('\n');}
+    document.getElementById('previewWorkBtn').addEventListener('click',()=>{document.getElementById('exportPreview').textContent=buildCsv();});
+    document.getElementById('downloadCsvBtn').addEventListener('click',()=>{
+      const csv=buildCsv();const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+      const url=URL.createObjectURL(blob);const a=document.createElement('a');
+      const name=document.getElementById('studentName').value.trim()||'student';
+      a.href=url;a.download=`${name}-roger-wishes.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+    });
+    document.getElementById('emailWorkBtn').addEventListener('click',()=>{
+      const email=document.getElementById('teacherEmail').value.trim();
+      const subject=encodeURIComponent('Roger and His Wishes Work');
+      const body=encodeURIComponent(buildCsv());
+      window.location.href=`mailto:${email}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>

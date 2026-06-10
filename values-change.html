@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Values as a Driver of Change</title>
+  <style>
+    :root {
+      --bg: #12061f;
+      --bg2: #1d0734;
+      --purple: #2d0b50;
+      --purple2: #41116e;
+      --gold: #ffd166;
+      --gold2: #ffb703;
+      --cyan: #45f3ff;
+      --pink: #ff4fd8;
+      --text: #f8ecff;
+      --muted: #cdb8e8;
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 209, 102, 0.28);
+      --shadow: 0 0 35px rgba(255, 209, 102, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 79, 216, 0.18), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(69, 243, 255, 0.14), transparent 34%),
+        linear-gradient(135deg, var(--bg), var(--bg2) 55%, #08030f);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(#fff 1px, transparent 1px),
+        radial-gradient(var(--gold) 1px, transparent 1px);
+      background-size: 70px 70px, 120px 120px;
+      background-position: 0 0, 30px 45px;
+      opacity: 0.16;
+      animation: drift 35s linear infinite;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 0, rgba(0,0,0,0.46) 80%);
+      z-index: -1;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-140px); }
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header.hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 90px 0 60px;
+      position: relative;
+    }
+
+    .section-label {
+      display: inline-block;
+      color: var(--gold);
+      border: 1px solid rgba(255,209,102,0.42);
+      border-radius: 999px;
+      padding: 10px 18px;
+      letter-spacing: 0.28em;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 0 22px rgba(255,209,102,0.24);
+      background: rgba(255,255,255,0.06);
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(3.2rem, 8vw, 7.8rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(255,209,102,0.22), 0 0 60px rgba(255,79,216,0.16);
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.45rem);
+      line-height: 1.55;
+    }
+
+    .gold-line {
+      height: 2px;
+      width: min(760px, 80%);
+      margin: 34px auto;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--cyan), var(--pink), transparent);
+      box-shadow: 0 0 18px rgba(255,209,102,0.7);
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
+    }
+
+    section {
+      padding: 76px 0;
+      position: relative;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      align-items: center;
+    }
+
+    .card, .quote, .activity, .diagram, .image-frame, .leaderboard, .scoreboard {
+      background: linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.035));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .card {
+      padding: clamp(24px, 4vw, 42px);
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover, .activity:hover, .hover-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(69,243,255,0.5);
+      box-shadow: 0 0 42px rgba(69,243,255,0.15), 0 0 32px rgba(255,209,102,0.16);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: 0 0 14px;
+      font-size: 1.45rem;
+      color: var(--gold);
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.72;
+    }
+
+    strong { color: #fff; }
+
+    .quote {
+      padding: 30px;
+      border-left: 5px solid var(--gold);
+      position: relative;
+    }
+
+    .quote::before {
+      content: "“";
+      position: absolute;
+      right: 24px;
+      top: -12px;
+      color: rgba(255,209,102,0.28);
+      font-size: 7rem;
+      line-height: 1;
+    }
+
+    .quote p {
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      color: white;
+      margin: 0;
+    }
+
+    .key-vocab {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .symbol-match {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .word-column, .symbol-column {
+      display: grid;
+      gap: 16px;
+    }
+
+    .match-row {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .vocab-bank, .symbol-bank {
+      display: grid;
+      gap: 18px;
+    }
+
+    .drag-word {
+      padding: 18px 20px;
+      border-radius: 18px;
+      background: rgba(69,243,255,0.08);
+      border: 1px solid rgba(69,243,255,0.3);
+      font-weight: 900;
+      cursor: grab;
+      transition: 0.3s ease;
+      user-select: none;
+    }
+
+    .drag-word {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      font-size: 1.05rem;
+    }
+
+    .drag-word:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,209,102,0.45);
+      box-shadow: 0 0 22px rgba(69,243,255,0.16);
+    }
+
+    .symbol-target {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      min-height: 72px;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 2px dashed rgba(255,209,102,0.24);
+      min-height: 92px;
+      transition: 0.3s ease;
+    }
+
+    .symbol-target.hovered {
+      border-color: var(--cyan);
+      box-shadow: 0 0 26px rgba(69,243,255,0.18);
+    }
+
+    .symbol-icon {
+      width: 62px;
+      height: 62px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,209,102,0.12);
+      font-size: 2rem;
+      box-shadow: 0 0 18px rgba(255,209,102,0.18);
+    }
+
+    .symbol-label {
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .symbol-target.correct {
+      border-color: #5cff9d;
+      background: rgba(92,255,157,0.08);
+    }
+
+    .symbol-target.correct .symbol-label {
+      color: white;
+    }
+
+    .vocab {
+      position: relative;
+      padding: 12px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(69,243,255,0.34);
+      background: rgba(69,243,255,0.08);
+      color: #fff;
+      font-weight: 800;
+      cursor: help;
+      box-shadow: 0 0 18px rgba(69,243,255,0.12);
+    }
+
+    .vocab::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 12px);
+      transform: translateX(-50%) scale(0.9);
+      min-width: 230px;
+      max-width: 280px;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(12, 4, 24, 0.96);
+      border: 1px solid rgba(255,209,102,0.5);
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.4;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s ease;
+      z-index: 5;
+      box-shadow: 0 0 22px rgba(255,209,102,0.25);
+    }
+
+    .vocab:hover::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .image-frame {
+      min-height: 360px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      position: relative;
+      background:
+        linear-gradient(145deg, rgba(255,209,102,0.14), rgba(69,243,255,0.08)),
+        rgba(255,255,255,0.04);
+    }
+
+    .image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      opacity: 0.88;
+    }
+
+    .image-frame .placeholder {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 26px;
+    }
+
+    .placeholder span {
+      display: block;
+      margin-top: 12px;
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .leaderboard {
+      padding: 28px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .competition-control {
+      display: grid;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,209,102,0.18);
+    }
+
+    .slider-wrap {
+      display: grid;
+      gap: 10px;
+    }
+
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .competition-slider {
+      width: 100%;
+      appearance: none;
+      height: 12px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pink), var(--gold), var(--cyan));
+      outline: none;
+      box-shadow: 0 0 18px rgba(255,209,102,0.25);
+    }
+
+    .competition-slider::-webkit-slider-thumb {
+      appearance: none;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 18px rgba(255,209,102,0.5);
+      cursor: pointer;
+    }
+
+    .competition-level {
+      text-align: center;
+      font-size: 1.3rem;
+      color: white;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .attendance-grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mix-match {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .sequence-builder {
+      display: grid;
+      gap: 22px;
+      margin-top: 20px;
+    }
+
+    .sequence-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
+
+    .sequence-card {
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(69,243,255,0.24);
+      font-weight: 900;
+      cursor: grab;
+      transition: 0.3s ease;
+      user-select: none;
+    }
+
+    .sequence-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 0 22px rgba(69,243,255,0.16);
+    }
+
+    .sequence-zones {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .sequence-zone {
+      min-height: 150px;
+      border-radius: 24px;
+      border: 2px dashed rgba(255,209,102,0.24);
+      background: rgba(255,255,255,0.05);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      transition: 0.3s ease;
+    }
+
+    .sequence-zone.hovered {
+      border-color: var(--cyan);
+      transform: scale(1.02);
+      box-shadow: 0 0 22px rgba(69,243,255,0.16);
+    }
+
+    .sequence-zone.correct {
+      border-color: #5cff9d;
+      background: rgba(92,255,157,0.08);
+    }
+
+    .sequence-zone h4 {
+      margin: 0 0 10px;
+      color: var(--gold);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+    }
+
+    .sequence-content {
+      color: white;
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .mix-card {
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(69,243,255,0.22);
+      font-weight: 800;
+      cursor: grab;
+      transition: 0.3s ease;
+    }
+
+    .mix-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,209,102,0.45);
+    }
+
+    .leader-row {
+      display: grid;
+      grid-template-columns: 82px 1fr 70px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .bar {
+      height: 13px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pink), var(--gold), var(--cyan));
+      box-shadow: 0 0 14px rgba(255,209,102,0.35);
+      animation: grow 1.8s ease both;
+      transform-origin: left;
+    }
+
+    @keyframes grow {
+      from { transform: scaleX(0.1); }
+      to { transform: scaleX(1); }
+    }
+
+    .arrow-flow {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 14px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .mechanism-builder {
+      padding: 28px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .builder-title {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: white;
+      letter-spacing: 0.06em;
+    }
+
+    .builder-bank {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .builder-card {
+      padding: 16px 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(69,243,255,0.25);
+      font-weight: 900;
+      cursor: grab;
+      transition: 0.3s ease;
+      user-select: none;
+    }
+
+    .builder-card:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 0 24px rgba(69,243,255,0.16);
+    }
+
+    .builder-zones {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 28px;
+      align-items: start;
+    }
+
+    .builder-zone {
+      min-height: 340px;
+      min-width: 0;
+      border-radius: 28px;
+      border: 2px dashed rgba(255,209,102,0.28);
+      background: rgba(255,255,255,0.05);
+      padding: 26px 22px;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .builder-zone.hovered {
+      border-color: var(--cyan);
+      box-shadow: 0 0 28px rgba(69,243,255,0.18);
+      transform: scale(1.02);
+    }
+
+    .builder-zone.correct {
+      border-color: #5cff9d;
+      background: rgba(92,255,157,0.08);
+      box-shadow: 0 0 32px rgba(92,255,157,0.16);
+    }
+
+    .builder-zone h4 {
+      margin: 0 0 18px;
+      font-size: 1.05rem;
+      line-height: 1.2;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+
+    .builder-zone p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .zone-content {
+      margin-top: 26px;
+      min-height: 110px;
+      border-radius: 20px;
+      border: 1px solid rgba(69,243,255,0.22);
+      background: rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: white;
+      line-height: 1.4;
+    }
+
+    .builder-arrow {
+      display: none;
+      position: absolute;
+      right: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: var(--gold);
+      text-shadow: 0 0 12px var(--gold);
+      animation: nudge 1.5s infinite;
+    }
+
+    .builder-zone.correct .builder-arrow {
+      display: block;
+    }
+
+    .flow-box {
+      padding: 18px;
+      min-height: 92px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,209,102,0.25);
+      font-weight: 900;
+    }
+
+    .arrow {
+      color: var(--gold);
+      font-size: 2.1rem;
+      text-shadow: 0 0 12px var(--gold);
+      animation: nudge 1.4s ease-in-out infinite;
+    }
+
+    @keyframes nudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+    }
+
+    .quality-match {
+      margin-top: 30px;
+      display: grid;
+      gap: 24px;
+    }
+
+    .quality-bank {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .quality-card {
+      width: 180px;
+      min-height: 120px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(69,243,255,0.24);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 16px;
+      font-weight: 900;
+      cursor: grab;
+      transition: 0.3s ease;
+      user-select: none;
+    }
+
+    .quality-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 0 26px rgba(69,243,255,0.16);
+    }
+
+    .quality-icon {
+      font-size: 2.6rem;
+      margin-bottom: 10px;
+    }
+
+    .quality-zones {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .quality-zone {
+      min-height: 260px;
+      border-radius: 28px;
+      border: 2px dashed rgba(255,209,102,0.28);
+      background: rgba(255,255,255,0.05);
+      padding: 24px;
+      transition: 0.3s ease;
+    }
+
+    .quality-zone.hovered {
+      border-color: var(--cyan);
+      transform: scale(1.02);
+      box-shadow: 0 0 26px rgba(69,243,255,0.16);
+    }
+
+    .quality-zone.correct {
+      border-color: #5cff9d;
+      background: rgba(92,255,157,0.08);
+    }
+
+    .quality-drop-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .dropped-item {
+      padding: 10px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.14);
+      font-weight: 800;
+      color: white;
+    }
+
+    .compare-panel {
+      padding: 30px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.065);
+    }
+
+    .compare-panel h3 { font-size: 1.9rem; }
+
+    ul {
+      margin: 18px 0 0;
+      padding-left: 22px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1.05rem;
+    }
+
+    .icon-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .icon-pill {
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,209,102,0.1);
+      border: 1px solid rgba(255,209,102,0.24);
+    }
+
+    .scoreboard {
+      padding: 26px;
+      text-align: center;
+      background: linear-gradient(145deg, rgba(255,79,216,0.13), rgba(69,243,255,0.08));
+    }
+
+    .score-title {
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      font-size: 0.85rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .score {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 18px;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .team {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .versus {
+      color: var(--gold);
+      font-size: 2rem;
+      text-shadow: 0 0 15px var(--gold);
+    }
+
+    .activities {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .activity {
+      padding: 26px;
+      transition: 0.3s ease;
+    }
+
+    .debate-ai {
+      margin-top: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .debate-controls {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mic-status {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .mic-status.good {
+      color: white;
+      border-color: rgba(92,255,157,0.35);
+      background: rgba(92,255,157,0.08);
+    }
+
+    .mic-status.bad {
+      color: white;
+      border-color: rgba(255,209,102,0.35);
+      background: rgba(255,209,102,0.08);
+    }
+
+    .debate-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 12px 18px;
+      background: linear-gradient(145deg, rgba(255,209,102,0.18), rgba(69,243,255,0.12));
+      border: 1px solid rgba(255,209,102,0.28);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .debate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(255,209,102,0.2);
+    }
+
+    .debate-text {
+      min-height: 150px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      padding: 18px;
+      color: white;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .debate-score {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(69,243,255,0.22);
+    }
+
+    .debate-number {
+      font-size: 2.6rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-shadow: 0 0 18px rgba(255,209,102,0.3);
+    }
+
+    .vocab-used {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .vocab-chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(69,243,255,0.1);
+      border: 1px solid rgba(69,243,255,0.22);
+      font-size: 0.8rem;
+      font-weight: 800;
+    }
+
+    .activity-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gold);
+      color: #180820;
+      font-weight: 900;
+      box-shadow: 0 0 22px rgba(255,209,102,0.45);
+      margin-bottom: 18px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .hover-card {
+      padding: 18px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: 0.3s ease;
+    }
+
+    .reflection-link {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: grid;
+      gap: 10px;
+    }
+
+    .reflection-label {
+      color: var(--cyan);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 900;
+    }
+
+    .reflection-example {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .reflection-arrow {
+      color: var(--gold);
+      font-size: 1.2rem;
+      font-weight: 900;
+    }
+
+    .reflection-stat {
+      margin-top: 10px;
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.5;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(255,209,102,0.08);
+      border: 1px solid rgba(255,209,102,0.16);
+    }
+
+    .reflection-match {
+      margin-top: 16px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .reflection-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .reflection-card {
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(69,243,255,0.22);
+      font-weight: 800;
+      cursor: grab;
+      transition: 0.3s ease;
+      user-select: none;
+      font-size: 0.9rem;
+    }
+
+    .reflection-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 18px rgba(69,243,255,0.14);
+    }
+
+    .reflection-drop {
+      min-height: 70px;
+      border-radius: 16px;
+      border: 2px dashed rgba(255,209,102,0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 12px;
+      color: var(--muted);
+      transition: 0.3s ease;
+      font-weight: 700;
+    }
+
+    .reflection-drop.hovered {
+      border-color: var(--cyan);
+      box-shadow: 0 0 20px rgba(69,243,255,0.16);
+    }
+
+    .reflection-drop.correct {
+      border-color: #5cff9d;
+      background: rgba(92,255,157,0.08);
+      color: white;
+    }
+
+    .send-work-panel {
+      margin-top: 32px;
+      padding: 30px;
+      border-radius: 30px;
+      background: linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.035));
+      border: 1px solid rgba(255,209,102,0.28);
+      box-shadow: var(--shadow);
+      display: grid;
+      gap: 18px;
+    }
+
+    .student-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .student-details { grid-template-columns: 1fr; }
+    }
+
+    .student-details input {
+      width: 100%;
+      border: 1px solid rgba(69,243,255,0.24);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.07);
+      color: white;
+      padding: 14px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .student-details input::placeholder {
+      color: rgba(248,236,255,0.55);
+    }
+
+    .export-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .export-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 13px 18px;
+      background: linear-gradient(145deg, rgba(255,209,102,0.18), rgba(69,243,255,0.12));
+      border: 1px solid rgba(255,209,102,0.28);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .export-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(255,209,102,0.2);
+    }
+
+    .export-preview {
+      min-height: 120px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 16px;
+      color: var(--muted);
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-family: monospace;
+      overflow-x: auto;
+    }
+
+    .big-idea {
+      text-align: center;
+      padding: clamp(38px, 7vw, 76px);
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,209,102,0.2), transparent 32%),
+        radial-gradient(circle at 80% 10%, rgba(69,243,255,0.17), transparent 35%),
+        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,209,102,0.38);
+      box-shadow: 0 0 60px rgba(255,209,102,0.22);
+    }
+
+    .big-idea h2 {
+      color: var(--gold);
+      text-shadow: 0 0 25px rgba(255,209,102,0.28);
+    }
+
+    .big-idea p {
+      max-width: 850px;
+      margin: 0 auto;
+      color: white;
+      font-size: clamp(1.3rem, 2.4vw, 2rem);
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .mini-label {
+      color: var(--cyan);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    footer {
+      padding: 36px 0 60px;
+      color: rgba(248,236,255,0.58);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 880px) {
+      .grid, .comparison, .activities { grid-template-columns: 1fr; }
+      .symbol-match { grid-template-columns: 1fr; }
+      .word-column, .symbol-column { gap: 12px; }
+      .vocab-bank { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .drag-word { min-height: 64px; }
+      .builder-zones, .sequence-zones, .quality-zones { grid-template-columns: 1fr; }
+      .arrow-flow { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); justify-self: center; }
+      .score { grid-template-columns: 1fr; }
+      .choice-grid { grid-template-columns: 1fr; }
+      section { padding: 52px 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <div class="section-label">SECTION 02</div>
+        <h1>Values as a Driver of Change</h1>
+        <p class="subtitle">How beliefs and values can shape economies, schools, and entire countries.</p>
+        <div class="gold-line"></div>
+        <p class="subtitle"><strong>Competition and challenge</strong> are not just personal values. They can become powerful mechanisms that push whole systems to improve.</p>
+      </div>
+      <div class="scroll-cue">scroll to explore</div>
+    </header>
+
+    <section>
+      <div class="grid">
+        <div class="card">
+          <div class="mini-label">Core idea</div>
+          <h2>From values to action</h2>
+          <p>At <strong>Manurewa Intermediate</strong>, we have the values of <strong>challenge</strong> and <strong>competition</strong>.</p>
+          <p>Challenge and competition are important for individuals because they encourage people to improve themselves, work hard, and learn how to compete fairly with others.</p>
+          <p>However, challenge and competition can also be used as <strong>mechanisms</strong> to drive improvement across entire schools, countries, and economies.</p>
+        </div>
+        <div class="quote">
+          <p>A value becomes powerful when it stops being just a belief and starts shaping what people actually do.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <div class="mini-label">Interactive vocabulary</div>
+        <h2>Key Vocab</h2>
+        <p>Hover over each word to reveal its meaning. Then match the words to the correct symbols.</p>
+        <div class="key-vocab">
+          <span class="vocab" data-tip="Trying to do better than others in a fair contest or system.">competition</span>
+          <span class="vocab" data-tip="A difficult task or goal that pushes someone to improve.">challenge</span>
+          <span class="vocab" data-tip="Something that acts upon something else and helps make something happen.">mechanism</span>
+          <span class="vocab" data-tip="Checking, watching, or supervising to make sure people do what they should.">oversight</span>
+          <span class="vocab" data-tip="Doing something well without wasting time, money, or effort.">efficiency</span>
+          <span class="vocab" data-tip="Getting better over time.">improvement</span>
+          <span class="vocab" data-tip="The system of producing, buying, selling, and using goods and services.">economy</span>
+          <span class="vocab" data-tip="Creating new ideas, products, methods, or designs.">innovation</span>
+          <span class="vocab" data-tip="What people want or need to buy or use.">demand</span>
+          <span class="vocab" data-tip="How much of something is available for people to buy or use.">supply</span>
+        </div>
+
+        <div class="symbol-match">
+          <div class="word-column" id="vocabBank">
+            <div class="drag-word" draggable="true" data-word="competition">competition</div>
+            <div class="drag-word" draggable="true" data-word="challenge">challenge</div>
+            <div class="drag-word" draggable="true" data-word="mechanism">mechanism</div>
+            <div class="drag-word" draggable="true" data-word="oversight">oversight</div>
+            <div class="drag-word" draggable="true" data-word="efficiency">efficiency</div>
+            <div class="drag-word" draggable="true" data-word="improvement">improvement</div>
+            <div class="drag-word" draggable="true" data-word="economy">economy</div>
+            <div class="drag-word" draggable="true" data-word="innovation">innovation</div>
+            <div class="drag-word" draggable="true" data-word="demand">demand</div>
+            <div class="drag-word" draggable="true" data-word="supply">supply</div>
+          </div>
+
+          <div class="symbol-column" id="symbolBank">
+            <div class="symbol-target" data-match="competition"><div class="symbol-icon">🏃</div><div class="symbol-label">Two athletes racing</div></div>
+            
+
+        <div class="symbol-target" data-match="challenge"><div class="symbol-icon">💪</div><div class="symbol-label">Arm wrestle challenge</div></div>
+              <div class="symbol-target" data-match="mechanism"><div class="symbol-icon">🚪</div><div class="symbol-label">Door hinge</div></div>
+              <div class="symbol-target" data-match="oversight"><div class="symbol-icon">🌊</div><div class="symbol-label">Lighthouse watching over ships</div></div>
+              <div class="symbol-target" data-match="efficiency"><div class="symbol-icon">⚙️</div><div class="symbol-label">Fast moving gear system</div></div>
+              <div class="symbol-target" data-match="improvement"><div class="symbol-icon">📈</div><div class="symbol-label">Growth graph moving upward</div></div>
+              <div class="symbol-target" data-match="economy"><div class="symbol-icon">🏙️</div><div class="symbol-label">Busy city economy</div></div>
+              <div class="symbol-target" data-match="innovation"><div class="symbol-icon">💡</div><div class="symbol-label">New invention idea</div></div>
+              <div class="symbol-target" data-match="demand"><div class="symbol-icon">🛒</div><div class="symbol-label">Lots of people wanting products</div></div>
+              <div class="symbol-target" data-match="supply"><div class="symbol-icon">📦</div><div class="symbol-label">Boxes ready to deliver</div></div>
+            </div>
+          </div>
+        </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid">
+        <div class="card">
+          <div class="mini-label">What is a mechanism?</div>
+          <h2>Something that acts</h2>
+          <p>A <strong>mechanism</strong> is something that acts upon something else.</p>
+          <p>A hinge is a mechanism because it allows a door to move. Your arms and legs are mechanisms because they help your body move.</p>
+          <p>Competition can also act as a mechanism. Instead of needing lots of inspectors and constant oversight to force people to improve, competition can encourage people and organisations to improve naturally because they want to succeed.</p>
+        </div>
+        <div class="diagram mechanism-builder">
+          <div class="builder-title">Build the Mechanism</div>
+
+          <p style="text-align:center;">Drag the correct ideas into the three stages to show how a value becomes a mechanism that creates an outcome.</p>
+
+          <div class="builder-bank">
+            <div class="builder-card" draggable="true" data-builder="value">Competition</div>
+            <div class="builder-card" draggable="true" data-builder="value">Desire to change</div>
+            <div class="builder-card" draggable="true" data-builder="value">People noticing problems</div>
+
+            <div class="builder-card" draggable="true" data-builder="mechanism">Push to improve</div>
+            <div class="builder-card" draggable="true" data-builder="mechanism">Encouraging people to compete</div>
+            <div class="builder-card" draggable="true" data-builder="mechanism">Public comparison</div>
+
+            <div class="builder-card" draggable="true" data-builder="outcome">Better results</div>
+            <div class="builder-card" draggable="true" data-builder="outcome">Better quality</div>
+            <div class="builder-card" draggable="true" data-builder="outcome">More innovation</div>
+
+            <div class="builder-card" draggable="true" data-builder="wrong">More homework</div>
+            <div class="builder-card" draggable="true" data-builder="wrong">Random luck</div>
+            <div class="builder-card" draggable="true" data-builder="wrong">Bigger buildings</div>
+          </div>
+
+          <div class="builder-zones">
+            <div class="builder-zone" data-zone="value">
+              <div>
+                <h4>VALUE</h4>
+                <p>The belief or idea that starts the process.</p>
+                <div class="zone-content">?</div>
+              </div>
+              <div class="builder-arrow">→</div>
+            </div>
+
+            <div class="builder-zone" data-zone="mechanism">
+              <div>
+                <h4>MECHANISM</h4>
+                <p>How the value acts upon people or systems.</p>
+                <div class="zone-content">?</div>
+              </div>
+              <div class="builder-arrow">→</div>
+            </div>
+
+            <div class="builder-zone" data-zone="outcome">
+              <div>
+                <h4>OUTCOME</h4>
+                <p>The final result created by the mechanism.</p>
+                <div class="zone-content">?</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid">
+        <div class="image-frame">
+          <img src="schoolcompetition.jpg" alt="School competition image placeholder" onerror="this.style.display='none'">
+          
+        </div>
+        <div class="card">
+          <div class="mini-label">School example</div>
+          <h2>School Competition</h2>
+          <p>Take, for example, the whānau competition at Manurewa Intermediate.</p>
+          <p>Mr Taylor knows that the whānau leaders will work hard to get students to school because the whānau are competing with one another.</p>
+          <p>Every week, attendance results are announced publicly. This encourages each whānau to improve attendance, punctuality, and uniform standards.</p>
+        </div>
+      </div>
+
+      <div style="height: 26px"></div>
+
+      <div class="leaderboard">
+        <h3>Competition Dial Activity</h3>
+
+        <div class="competition-control">
+          <div class="competition-level">Competition Level: <span id="competitionValue">HIGH</span></div>
+
+          <div class="slider-wrap">
+            <div class="slider-labels">
+              <span>Less Competition</span>
+              <span>More Competition</span>
+            </div>
+
+            <input type="range" min="0" max="100" value="80" class="competition-slider" id="competitionSlider">
+          </div>
+
+          <div class="attendance-grid">
+            <div class="leader-row"><strong>Kauri</strong><div class="bar" id="bar1" style="width: 94%"></div><strong id="score1">94%</strong></div>
+            <div class="leader-row"><strong>Kōwhai</strong><div class="bar" id="bar2" style="width: 91%"></div><strong id="score2">91%</strong></div>
+            <div class="leader-row"><strong>Rimu</strong><div class="bar" id="bar3" style="width: 88%"></div><strong id="score3">88%</strong></div>
+            <div class="leader-row"><strong>Tawa</strong><div class="bar" id="bar4" style="width: 84%"></div><strong id="score4">84%</strong></div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top: 10px;">
+          <div class="mini-label">Mix and match</div>
+          <h3>Put these in the correct order</h3>
+          <p>Build school-based improvement chains by placing the correct ideas into Step 1, Step 2, and Step 3.</p>
+
+          <div class="sequence-builder">
+            <div class="sequence-bank">
+              <div class="sequence-card" draggable="true" data-sequence="step1">Kids not coming to school</div>
+              <div class="sequence-card" draggable="true" data-sequence="step2">Better follow-up systems</div>
+              <div class="sequence-card" draggable="true" data-sequence="step3">Community becomes healthier</div>
+
+              <div class="sequence-card" draggable="true" data-sequence="step1">Attendance data is shared</div>
+              <div class="sequence-card" draggable="true" data-sequence="step2">Whānau try to improve</div>
+              <div class="sequence-card" draggable="true" data-sequence="step3">Attendance improves</div>
+
+              <div class="sequence-card" draggable="true" data-sequence="step1">Students falling behind</div>
+              <div class="sequence-card" draggable="true" data-sequence="step2">Teachers change strategies</div>
+              <div class="sequence-card" draggable="true" data-sequence="step3">Learning improves</div>
+
+              <div class="sequence-card" draggable="true" data-sequence="wrong">More paperwork</div>
+              <div class="sequence-card" draggable="true" data-sequence="wrong">Random guessing</div>
+              <div class="sequence-card" draggable="true" data-sequence="wrong">Longer lunch breaks</div>
+            </div>
+
+            <div class="sequence-zones">
+              <div class="sequence-zone" data-order="step1">
+                <div>
+                  <h4>STEP 1</h4>
+                  <div class="sequence-content">What problem or situation starts the process?</div>
+                </div>
+              </div>
+
+              <div class="sequence-zone" data-order="step2">
+                <div>
+                  <h4>STEP 2</h4>
+                  <div class="sequence-content">What mechanism or response happens next?</div>
+                </div>
+              </div>
+
+              <div class="sequence-zone" data-order="step3">
+                <div>
+                  <h4>STEP 3</h4>
+                  <div class="sequence-content">What outcome or improvement happens?</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="quote" style="margin-top: 26px;">
+        <p>In this case, competition acts as a mechanism that drives continuous improvement across the school.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid">
+        <div class="card">
+          <div class="mini-label">Business example</div>
+          <h2>Furniture with no competition</h2>
+          <p>Imagine a furniture company with no competition.</p>
+          <p>If the company has a government contract and nobody else can compete with them, they could produce poor quality furniture, uncomfortable chairs, bad colours, and limited choices.</p>
+          <p>People would have little ability to demand improvement.</p>
+        </div>
+        <div class="card">
+          <div class="mini-label">When competition arrives</div>
+          <h2>Businesses must improve</h2>
+          <p>Once several companies compete with each other, businesses must offer better quality, lower prices, more innovation, and better design.</p>
+          <p>In this case, competition becomes a mechanism that drives improvement.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="comparison">
+        <div class="compare-panel quality-zone" data-quality="low">
+          <h3>No Competition</h3>
+          <ul>
+            <li>Poor quality furniture</li>
+            <li>Uncomfortable chairs</li>
+            <li>Bad colours</li>
+            <li>Limited choices</li>
+            <li>Less pressure to improve</li>
+          </ul>
+          <div class="icon-row">
+            <span class="icon-pill">🪑 dull design</span>
+            <span class="icon-pill">🐢 slow change</span>
+            <span class="icon-pill">🔒 no choice</span>
+          </div>
+
+          <div class="quality-drop-area" id="lowCompetitionDrop"></div>
+        </div>
+
+        <div class="compare-panel quality-zone" data-quality="high">
+          <h3>Competition</h3>
+          <ul>
+            <li>Better quality</li>
+            <li>Lower prices</li>
+            <li>More innovation</li>
+            <li>Better design</li>
+            <li>More pressure to improve</li>
+          </ul>
+          <div class="icon-row">
+            <span class="icon-pill">✨ innovation</span>
+            <span class="icon-pill">📉 lower prices</span>
+            <span class="icon-pill">🎯 better choices</span>
+          </div>
+
+          <div class="quality-drop-area" id="highCompetitionDrop"></div>
+        </div>
+      </div>
+
+      <div class="card quality-match">
+        <div class="mini-label">Design Challenge</div>
+        <h2>Match the Designs</h2>
+        <p>Drag each product into the competition system above that it best matches. Think carefully: would this product appear in a system with lots of competition and pressure to improve, or in a system with very little competition and less pressure to change?</p>
+
+        <div class="quality-bank">
+          <div class="quality-card" draggable="true" data-quality-card="high">
+            <div>
+              <div class="quality-icon">🏎️</div>
+              High-performance car
+            </div>
+          </div>
+
+          <div class="quality-card" draggable="true" data-quality-card="low">
+            <div>
+              <div class="quality-icon">🚗</div>
+              Cheap unreliable car
+            </div>
+          </div>
+
+          <div class="quality-card" draggable="true" data-quality-card="high">
+            <div>
+              <div class="quality-icon">🪑</div>
+              Ergonomic modern chair
+            </div>
+          </div>
+
+          <div class="quality-card" draggable="true" data-quality-card="low">
+            <div>
+              <div class="quality-icon">🪑</div>
+              Uncomfortable plastic chair
+            </div>
+          </div>
+
+          <div class="quality-card" draggable="true" data-quality-card="high">
+            <div>
+              <div class="quality-icon">📱</div>
+              Fast modern smartphone
+            </div>
+          </div>
+
+          <div class="quality-card" draggable="true" data-quality-card="low">
+            <div>
+              <div class="quality-icon">📟</div>
+              Outdated slow device
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="grid">
+        <div class="image-frame">
+          <img src="origin.jpg" alt="State of Origin image placeholder" onerror="this.style.display='none'">
+          
+        </div>
+        <div class="scoreboard">
+          <div class="score-title">Sports example</div>
+          <div class="score">
+            <div class="team">NSW</div>
+            <div class="versus">VS</div>
+            <div class="team">QLD</div>
+          </div>
+          <p>This is also why New South Wales and Queensland compete so fiercely in rugby league. Competition pushes both sides to improve, creating a better competition overall.</p>
+          <p>Competition can also shape economies and countries.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <div class="mini-label">Reflection</div>
+        <h2>Can Competition Go Too Far?</h2>
+        <p>Competition can be powerful, but it is not perfect. Competition can create stress. Some people may be left behind. It can also create winners and losers.</p>
+        <p>That is why systems still need fairness, support, and clear rules. Competition can drive improvement, but people also need help to take part properly.</p>
+        <div class="choice-grid">
+          <div class="hover-card">
+            <strong>Stress</strong><br><span>Too much pressure can make people anxious.</span>
+
+            <div class="reflection-link">
+              <div class="reflection-label">Possible effect</div>
+              <div class="reflection-example">
+                <span>School pressure increases</span>
+                <span class="reflection-arrow">→</span>
+                <span>Mental health can become worse</span>
+              </div>
+
+              <div class="reflection-stat">
+                Studies in many countries show rising anxiety and stress levels among young people linked to academic and social pressure.
+              </div>
+
+              <div class="reflection-match">
+                <div class="reflection-bank">
+                  <div class="reflection-card" draggable="true" data-reflection="stress">Mental health pressures</div>
+                  <div class="reflection-card" draggable="true" data-reflection="wrong">Lower food prices</div>
+                </div>
+
+                <div class="reflection-drop" data-reflect-zone="stress">
+                  Match the correct effect here
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hover-card">
+            <strong>Winners and losers</strong><br><span>Some people or groups may fall behind.</span>
+
+            <div class="reflection-link">
+              <div class="reflection-label">Possible effect</div>
+              <div class="reflection-example">
+                <span>Unequal access to opportunities</span>
+                <span class="reflection-arrow">→</span>
+                <span>Growing inequality between groups</span>
+              </div>
+
+              <div class="reflection-stat">
+                In New Zealand, Māori communities are statistically more likely to experience lower incomes, poorer housing, and reduced access to healthcare compared with many Pākehā communities.
+              </div>
+
+              <div class="reflection-match">
+                <div class="reflection-bank">
+                  <div class="reflection-card" draggable="true" data-reflection="inequality">Growing inequality</div>
+                  <div class="reflection-card" draggable="true" data-reflection="wrong">Better WiFi speeds</div>
+                </div>
+
+                <div class="reflection-drop" data-reflect-zone="inequality">
+                  Match the correct effect here
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hover-card">
+            <strong>Fairness</strong><br><span>Rules are needed so competition is not harmful.</span>
+
+            <div class="reflection-link">
+              <div class="reflection-label">Example</div>
+              <div class="reflection-example">
+                <span>Supermarket duopoly</span>
+                <span class="reflection-arrow">→</span>
+                <span>Higher vegetable prices</span>
+              </div>
+
+              <div class="reflection-stat">
+                If only a few companies control a market, prices can stay high because there is less competition forcing prices down.
+              </div>
+
+              <div class="reflection-match">
+                <div class="reflection-bank">
+                  <div class="reflection-card" draggable="true" data-reflection="fairness">High prices with little competition</div>
+                  <div class="reflection-card" draggable="true" data-reflection="wrong">Longer holidays</div>
+                </div>
+
+                <div class="reflection-drop" data-reflect-zone="fairness">
+                  Match the correct effect here
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hover-card">
+            <strong>Support</strong><br><span>People need help to improve, not just pressure.</span>
+
+            <div class="reflection-link">
+              <div class="reflection-label">School example</div>
+              <div class="reflection-example">
+                <span>Students struggling with reading</span>
+                <span class="reflection-arrow">→</span>
+                <span>Extra teacher support and tutoring</span>
+              </div>
+
+              <div class="reflection-stat">
+                Improvement usually happens best when challenge is combined with support, guidance, and access to resources.
+              </div>
+
+              <div class="reflection-match">
+                <div class="reflection-bank">
+                  <div class="reflection-card" draggable="true" data-reflection="support">Extra help improves outcomes</div>
+                  <div class="reflection-card" draggable="true" data-reflection="wrong">More random results</div>
+                </div>
+
+                <div class="reflection-drop" data-reflect-zone="support">
+                  Match the correct effect here
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="mini-label">Student tasks</div>
+      <h2>Activities</h2>
+      <div class="activities">
+        <div class="activity">
+          <div class="activity-number">1</div>
+          <h3>Match the vocab</h3>
+          <p>Match each key word to its correct meaning: competition, challenge, mechanism, oversight, efficiency, innovation, demand, and supply.</p>
+        </div>
+        <div class="activity">
+          <div class="activity-number">2</div>
+          <h3>Competition or Oversight?</h3>
+          <p>Read examples from schools, sport, and business. Decide whether improvement is being driven by competition or by oversight.</p>
+        </div>
+        <div class="activity">
+          <div class="activity-number">3</div>
+          <h3>Debate AI Challenge</h3>
+          <p><strong>Does competition always improve things?</strong> Speak your answer into the page or type it below. Your response will be scored out of 100 based on your use of evidence and vocabulary from the lesson.</p>
+
+          <div class="debate-ai">
+            <div class="debate-controls">
+              <button class="debate-btn" id="startSpeechBtn">🎤 Start Speaking</button>
+              <button class="debate-btn" id="stopSpeechBtn">⏹ Stop</button>
+              <button class="debate-btn" id="scoreDebateBtn">📊 Score My Answer</button>
+            </div>
+
+            <div class="mic-status" id="micStatus">
+              Mic tip: this works best in Chrome or Edge and usually needs the page to be opened from HTTPS or localhost. If it does not work, students can type instead.
+            </div>
+
+            <div class="debate-text" id="debateResponse" contenteditable="true">
+              Type or speak your debate response here...
+            </div>
+
+            <div class="debate-score">
+              <div>
+                <strong>Debate Score</strong>
+                <div id="debateFeedback">Use vocabulary like competition, mechanism, oversight, innovation, fairness, support, and improvement.</div>
+
+                <div class="vocab-used" id="vocabUsed"></div>
+              </div>
+
+              <div class="debate-number" id="debateScore">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="send-work-panel">
+        <div class="mini-label">Send my work to my teacher</div>
+        <h2>Export Your Answers</h2>
+        <p>Enter your details, then download your work as a CSV file. This file can be opened in Google Sheets or emailed to your teacher.</p>
+
+        <div class="student-details">
+          <input id="studentName" type="text" placeholder="Student name">
+          <input id="studentClass" type="text" placeholder="Class / Room">
+          <input id="teacherEmail" type="email" placeholder="Teacher email optional">
+        </div>
+
+        <div class="export-buttons">
+          <button class="export-btn" id="previewWorkBtn">👀 Preview My Work</button>
+          <button class="export-btn" id="downloadCsvBtn">⬇️ Download CSV</button>
+          <button class="export-btn" id="emailWorkBtn">✉️ Open Email</button>
+        </div>
+
+        <div class="export-preview" id="exportPreview">Your exported answers will appear here.</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="big-idea">
+        <h2>The Big Idea</h2>
+        <p>Values are not just personal beliefs. Values such as challenge and competition can also become mechanisms that shape schools, businesses, economies, and entire countries.</p>
+      </div>
+    </section>
+
+    <footer>
+      Roger Douglas Series • Values as a Driver of Change • Manurewa Intermediate
+    </footer>
+  </main>
+  <script>
+    const slider = document.getElementById('competitionSlider');
+    const competitionValue = document.getElementById('competitionValue');
+
+    const scores = [
+      document.getElementById('score1'),
+      document.getElementById('score2'),
+      document.getElementById('score3'),
+      document.getElementById('score4')
+    ];
+
+    const bars = [
+      document.getElementById('bar1'),
+      document.getElementById('bar2'),
+      document.getElementById('bar3'),
+      document.getElementById('bar4')
+    ];
+
+    function updateCompetition() {
+      const value = parseInt(slider.value);
+
+      let level = 'LOW';
+      if (value > 65) level = 'HIGH';
+      else if (value > 35) level = 'MEDIUM';
+
+      competitionValue.textContent = level;
+
+      const baseScores = [70, 67, 64, 60];
+
+      bars.forEach((bar, index) => {
+        const attendance = baseScores[index] + Math.floor(value * 0.3);
+        bar.style.width = attendance + '%';
+        scores[index].textContent = attendance + '%';
+      });
+    }
+
+    slider.addEventListener('input', updateCompetition);
+    updateCompetition();
+
+    const builderCards = document.querySelectorAll('.builder-card');
+    const builderZones = document.querySelectorAll('.builder-zone');
+
+    let draggedBuilder = null;
+
+    builderCards.forEach(card => {
+      card.addEventListener('dragstart', () => {
+        draggedBuilder = card;
+      });
+    });
+
+    builderZones.forEach(zone => {
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+        zone.classList.add('hovered');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('hovered');
+      });
+
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('hovered');
+
+        if (!draggedBuilder) return;
+
+        const correct = zone.dataset.zone;
+        const dragged = draggedBuilder.dataset.builder;
+
+        if (correct === dragged) {
+          zone.classList.add('correct');
+
+          const content = zone.querySelector('.zone-content');
+
+          if (content.textContent === '?') {
+            content.textContent = draggedBuilder.textContent;
+          } else {
+            content.textContent += ' • ' + draggedBuilder.textContent;
+          }
+
+          draggedBuilder.style.opacity = '0.3';
+          draggedBuilder.style.pointerEvents = 'none';
+        } else {
+          zone.style.animation = 'shake 0.3s';
+          setTimeout(() => {
+            zone.style.animation = '';
+          }, 300);
+        }
+      });
+    });
+
+    const sequenceCards = document.querySelectorAll('.sequence-card');
+    const sequenceZones = document.querySelectorAll('.sequence-zone');
+
+    let draggedSequence = null;
+
+    sequenceCards.forEach(card => {
+      card.addEventListener('dragstart', () => {
+        draggedSequence = card;
+      });
+    });
+
+    sequenceZones.forEach(zone => {
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+        zone.classList.add('hovered');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('hovered');
+      });
+
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('hovered');
+
+        if (!draggedSequence) return;
+
+        const correct = zone.dataset.order;
+        const dragged = draggedSequence.dataset.sequence;
+
+        if (correct === dragged) {
+          zone.classList.add('correct');
+          zone.querySelector('.sequence-content').textContent = draggedSequence.textContent;
+          draggedSequence.style.opacity = '0.3';
+          draggedSequence.style.pointerEvents = 'none';
+        } else {
+          zone.style.animation = 'shake 0.3s';
+          setTimeout(() => {
+            zone.style.animation = '';
+          }, 300);
+        }
+      });
+    });
+
+    const qualityCards = document.querySelectorAll('.quality-card');
+    const qualityZones = document.querySelectorAll('.quality-zone');
+
+    let draggedQuality = null;
+
+    qualityCards.forEach(card => {
+      card.addEventListener('dragstart', () => {
+        draggedQuality = card;
+      });
+    });
+
+    qualityZones.forEach(zone => {
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+        zone.classList.add('hovered');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('hovered');
+      });
+
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('hovered');
+
+        if (!draggedQuality) return;
+
+        const correct = zone.dataset.quality;
+        const dragged = draggedQuality.dataset.qualityCard;
+
+        if (correct === dragged) {
+          zone.classList.add('correct');
+
+          const dropArea = zone.querySelector('.quality-drop-area');
+          const item = document.createElement('div');
+          item.className = 'dropped-item';
+          item.textContent = draggedQuality.textContent.trim();
+          dropArea.appendChild(item);
+
+          draggedQuality.style.opacity = '0.3';
+          draggedQuality.style.pointerEvents = 'none';
+        } else {
+          zone.style.animation = 'shake 0.3s';
+          setTimeout(() => {
+            zone.style.animation = '';
+          }, 300);
+        }
+      });
+    });
+
+    const reflectionCards = document.querySelectorAll('.reflection-card');
+    const reflectionDrops = document.querySelectorAll('.reflection-drop');
+
+    let draggedReflection = null;
+
+    reflectionCards.forEach(card => {
+      card.addEventListener('dragstart', () => {
+        draggedReflection = card;
+      });
+    });
+
+    reflectionDrops.forEach(drop => {
+      drop.addEventListener('dragover', e => {
+        e.preventDefault();
+        drop.classList.add('hovered');
+      });
+
+      drop.addEventListener('dragleave', () => {
+        drop.classList.remove('hovered');
+      });
+
+      drop.addEventListener('drop', e => {
+        e.preventDefault();
+        drop.classList.remove('hovered');
+
+        if (!draggedReflection) return;
+
+        const correct = drop.dataset.reflectZone;
+        const dragged = draggedReflection.dataset.reflection;
+
+        if (correct === dragged) {
+          drop.classList.add('correct');
+          drop.textContent = draggedReflection.textContent;
+          draggedReflection.style.opacity = '0.3';
+          draggedReflection.style.pointerEvents = 'none';
+        } else {
+          drop.style.animation = 'shake 0.3s';
+          setTimeout(() => {
+            drop.style.animation = '';
+          }, 300);
+        }
+      });
+    });
+
+    const debateResponse = document.getElementById('debateResponse');
+    const debateScore = document.getElementById('debateScore');
+    const debateFeedback = document.getElementById('debateFeedback');
+    const vocabUsed = document.getElementById('vocabUsed');
+    const scoreDebateBtn = document.getElementById('scoreDebateBtn');
+    const startSpeechBtn = document.getElementById('startSpeechBtn');
+    const stopSpeechBtn = document.getElementById('stopSpeechBtn');
+    const micStatus = document.getElementById('micStatus');
+
+    const debateVocab = [
+      'competition',
+      'challenge',
+      'mechanism',
+      'oversight',
+      'efficiency',
+      'improvement',
+      'economy',
+      'innovation',
+      'demand',
+      'supply',
+      'fairness',
+      'support'
+    ];
+
+    scoreDebateBtn.addEventListener('click', () => {
+      const text = debateResponse.textContent.toLowerCase();
+
+      let score = 20;
+      let usedWords = [];
+
+      debateVocab.forEach(word => {
+        if (text.includes(word)) {
+          score += 6;
+          usedWords.push(word);
+        }
+      });
+
+      if (text.includes('because')) score += 8;
+      if (text.includes('however')) score += 8;
+      if (text.length > 250) score += 10;
+      if (text.includes('example')) score += 8;
+
+      if (score > 100) score = 100;
+
+      debateScore.textContent = score;
+
+      if (score > 85) {
+        debateFeedback.textContent = 'Excellent use of vocabulary, reasoning, and balanced argument.';
+      } else if (score > 65) {
+        debateFeedback.textContent = 'Good response. Try adding more evidence and key vocabulary.';
+      } else {
+        debateFeedback.textContent = 'Try using more lesson vocabulary and explaining your ideas in greater detail.';
+      }
+
+      vocabUsed.innerHTML = '';
+
+      usedWords.forEach(word => {
+        const chip = document.createElement('div');
+        chip.className = 'vocab-chip';
+        chip.textContent = word;
+        vocabUsed.appendChild(chip);
+      });
+    });
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'en-NZ';
+
+      let finalTranscript = '';
+      let isListening = false;
+
+      startSpeechBtn.addEventListener('click', () => {
+        try {
+          finalTranscript = debateResponse.textContent.includes('Type or speak') ? '' : debateResponse.textContent + ' ';
+          recognition.start();
+          isListening = true;
+          startSpeechBtn.textContent = '🎙️ Listening...';
+          micStatus.textContent = 'Listening now. Speak your answer, then press Stop.';
+          micStatus.className = 'mic-status good';
+        } catch (error) {
+          micStatus.textContent = 'The microphone is already running, or the browser blocked it. Press Stop, then try again.';
+          micStatus.className = 'mic-status bad';
+        }
+      });
+
+      stopSpeechBtn.addEventListener('click', () => {
+        recognition.stop();
+        isListening = false;
+        startSpeechBtn.textContent = '🎤 Start Speaking';
+        micStatus.textContent = 'Speech stopped. You can now score your answer or edit the text.';
+        micStatus.className = 'mic-status';
+      });
+
+      recognition.onresult = event => {
+        let interimTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const transcript = event.results[i][0].transcript;
+
+          if (event.results[i].isFinal) {
+            finalTranscript += transcript + ' ';
+          } else {
+            interimTranscript += transcript;
+          }
+        }
+
+        debateResponse.textContent = finalTranscript + interimTranscript;
+      };
+
+      recognition.onend = () => {
+        if (isListening) {
+          try {
+            recognition.start();
+          } catch (error) {
+            isListening = false;
+            startSpeechBtn.textContent = '🎤 Start Speaking';
+          }
+        } else {
+          startSpeechBtn.textContent = '🎤 Start Speaking';
+        }
+      };
+
+      recognition.onerror = event => {
+        isListening = false;
+        startSpeechBtn.textContent = '🎤 Start Speaking';
+
+        if (event.error === 'not-allowed') {
+          micStatus.textContent = 'Microphone permission was blocked. Click the lock icon near the address bar and allow microphone access.';
+        } else if (event.error === 'no-speech') {
+          micStatus.textContent = 'No speech was detected. Try again and speak clearly after pressing Start Speaking.';
+        } else if (event.error === 'network') {
+          micStatus.textContent = 'Speech recognition needs browser/network support. Typing will still work.';
+        } else {
+          micStatus.textContent = 'The microphone did not start properly. Try Chrome/Edge, HTTPS, or type your answer instead.';
+        }
+
+        micStatus.className = 'mic-status bad';
+      };
+    } else {
+      startSpeechBtn.disabled = true;
+      stopSpeechBtn.disabled = true;
+      startSpeechBtn.textContent = '🎤 Mic not supported';
+      micStatus.textContent = 'This browser does not support built-in speech recognition. Students can still type their answer and score it.';
+      micStatus.className = 'mic-status bad';
+    }
+
+    const studentName = document.getElementById('studentName');
+    const studentClass = document.getElementById('studentClass');
+    const teacherEmail = document.getElementById('teacherEmail');
+    const previewWorkBtn = document.getElementById('previewWorkBtn');
+    const downloadCsvBtn = document.getElementById('downloadCsvBtn');
+    const emailWorkBtn = document.getElementById('emailWorkBtn');
+    const exportPreview = document.getElementById('exportPreview');
+
+    function getText(selector) {
+      const element = document.querySelector(selector);
+      return element ? element.textContent.trim() : '';
+    }
+
+    function getAllText(selector) {
+      return Array.from(document.querySelectorAll(selector)).map(item => item.textContent.trim()).filter(Boolean).join(' | ');
+    }
+
+    function csvSafe(value) {
+      return '"' + String(value || '').replace(/"/g, '""') + '"';
+    }
+
+    function collectWork() {
+      const completedSymbolMatches = Array.from(document.querySelectorAll('.symbol-target.correct .symbol-label')).map(item => item.textContent.trim()).join(' | ');
+      const mechanismValue = document.querySelector('[data-zone="value"] .zone-content')?.textContent.trim() || '';
+      const mechanismAction = document.querySelector('[data-zone="mechanism"] .zone-content')?.textContent.trim() || '';
+      const mechanismOutcome = document.querySelector('[data-zone="outcome"] .zone-content')?.textContent.trim() || '';
+      const sequenceStep1 = document.querySelector('[data-order="step1"] .sequence-content')?.textContent.trim() || '';
+      const sequenceStep2 = document.querySelector('[data-order="step2"] .sequence-content')?.textContent.trim() || '';
+      const sequenceStep3 = document.querySelector('[data-order="step3"] .sequence-content')?.textContent.trim() || '';
+      const noCompetitionItems = document.getElementById('lowCompetitionDrop')?.textContent.trim() || '';
+      const competitionItems = document.getElementById('highCompetitionDrop')?.textContent.trim() || '';
+      const reflectionMatches = Array.from(document.querySelectorAll('.reflection-drop.correct')).map(item => item.textContent.trim()).join(' | ');
+
+      return {
+        date: new Date().toLocaleString(),
+        name: studentName.value.trim(),
+        classRoom: studentClass.value.trim(),
+        page: 'Values as a Driver of Change',
+        competitionDial: slider.value,
+        competitionLevel: competitionValue.textContent,
+        vocabSymbolMatches: completedSymbolMatches,
+        mechanismValue,
+        mechanismAction,
+        mechanismOutcome,
+        sequenceStep1,
+        sequenceStep2,
+        sequenceStep3,
+        noCompetitionItems,
+        competitionItems,
+        reflectionMatches,
+        debateAnswer: debateResponse.textContent.trim(),
+        debateScore: debateScore.textContent,
+        debateFeedback: debateFeedback.textContent.trim(),
+        vocabUsed: getAllText('.vocab-chip')
+      };
+    }
+
+    function buildCsv() {
+      const work = collectWork();
+      const headers = Object.keys(work);
+      const values = Object.values(work);
+      return headers.map(csvSafe).join(',') + '\n' + values.map(csvSafe).join(',');
+    }
+
+    function previewWork() {
+      const work = collectWork();
+      exportPreview.textContent = Object.entries(work).map(([key, value]) => `${key}: ${value}`).join('\n');
+    }
+
+    previewWorkBtn.addEventListener('click', previewWork);
+
+    downloadCsvBtn.addEventListener('click', () => {
+      const csv = buildCsv();
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      const safeName = (studentName.value.trim() || 'student').replace(/[^a-z0-9]/gi, '_').toLowerCase();
+      link.href = url;
+      link.download = `${safeName}_values_driver_of_change.csv`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      previewWork();
+    });
+
+    emailWorkBtn.addEventListener('click', () => {
+      const work = collectWork();
+      const subject = encodeURIComponent('Values as a Driver of Change - Student Work');
+      const body = encodeURIComponent(Object.entries(work).map(([key, value]) => `${key}: ${value}`).join('\n'));
+      const to = encodeURIComponent(teacherEmail.value.trim());
+      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
+    });
+
+    function shuffleElements(containerSelector, itemSelector) {
+      const container = document.querySelector(containerSelector);
+      if (!container) return;
+
+      const items = Array.from(container.querySelectorAll(itemSelector));
+
+      for (let i = items.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [items[i], items[j]] = [items[j], items[i]];
+      }
+
+      items.forEach(item => container.appendChild(item));
+    }
+
+    shuffleElements('#vocabBank', '.drag-word');
+    shuffleElements('#symbolBank', '.symbol-target');
+
+    const dragWords = document.querySelectorAll('.drag-word');
+    const symbolTargets = document.querySelectorAll('.symbol-target');
+
+    let draggedWord = null;
+
+    dragWords.forEach(word => {
+      word.addEventListener('dragstart', () => {
+        draggedWord = word;
+      });
+    });
+
+    symbolTargets.forEach(target => {
+      target.addEventListener('dragover', e => {
+        e.preventDefault();
+        target.classList.add('hovered');
+      });
+
+      target.addEventListener('dragleave', () => {
+        target.classList.remove('hovered');
+      });
+
+      target.addEventListener('drop', e => {
+        e.preventDefault();
+        target.classList.remove('hovered');
+
+        if (!draggedWord) return;
+
+        const correctMatch = target.dataset.match;
+        const draggedMatch = draggedWord.dataset.word;
+
+        if (correctMatch === draggedMatch) {
+          target.classList.add('correct');
+          target.querySelector('.symbol-label').textContent = 'Correct: ' + draggedMatch;
+          draggedWord.style.opacity = '0.35';
+          draggedWord.style.pointerEvents = 'none';
+        } else {
+          target.style.animation = 'shake 0.3s';
+          setTimeout(() => {
+            target.style.animation = '';
+          }, 300);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

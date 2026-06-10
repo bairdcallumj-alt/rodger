@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roger and His Wishes</title>
+  <style>
+    :root {
+      --bg-deep: #12002b;
+      --bg-mid: #24004f;
+      --gold: #ffd166;
+      --amber: #f7a928;
+      --cyan: #4de1ff;
+      --pink: #ff4fd8;
+      --text: #fff8e7;
+      --muted: #d9c9ff;
+      --card: rgba(255, 255, 255, 0.09);
+      --card-border: rgba(255, 255, 255, 0.22);
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255, 79, 216, 0.28), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(77, 225, 255, 0.24), transparent 32%),
+        radial-gradient(circle at 50% 85%, rgba(255, 209, 102, 0.18), transparent 35%),
+        linear-gradient(135deg, var(--bg-deep), var(--bg-mid) 55%, #070015);
+      overflow-x: hidden;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255,255,255,0.55) 1px, transparent 1px);
+      background-size: 90px 90px, 140px 140px;
+      background-position: 0 0, 40px 60px;
+      opacity: 0.45;
+      animation: drift 24s linear infinite;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-90px); }
+    }
+
+    .page {
+      width: min(1180px, 92vw);
+      margin: 0 auto;
+      padding: 40px 0 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header {
+      min-height: 54vh;
+      align-items: stretch;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.09);
+      color: var(--muted);
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+    }
+
+    .spark {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 18px var(--gold), 0 0 30px var(--amber);
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.7rem);
+      line-height: 0.9;
+      letter-spacing: -0.08em;
+      max-width: 780px;
+      text-shadow: 0 10px 32px var(--shadow);
+    }
+
+    h1 span {
+      display: block;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(255, 209, 102, 0.45);
+    }
+
+    .subtitle {
+      margin-top: 24px;
+      max-width: 660px;
+      color: var(--muted);
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      line-height: 1.6;
+    }
+
+    .hero-card {
+      min-height: 100%;
+      border-radius: 36px;
+      border: 1px solid var(--card-border);
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04)),
+        radial-gradient(circle at 50% 40%, rgba(255,209,102,0.18), transparent 34%);
+      box-shadow: 0 28px 80px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      padding: 20px;
+    }
+
+    .hero-scroller-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-scroller-title strong {
+      color: var(--gold);
+      font-size: 1.05rem;
+    }
+
+    .hero-scroller-title span {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+
+    .intro-strip {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .mini-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .mini-card strong {
+      color: var(--gold);
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+    }
+
+    .contents {
+      margin-top: 70px;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      letter-spacing: -0.05em;
+    }
+
+    .section-title p {
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.5;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .content-card {
+      min-height: 300px;
+      padding: 24px;
+      border-radius: 30px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 22px 60px rgba(0,0,0,0.24);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .content-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,209,102,0.75);
+      background: rgba(255,255,255,0.14);
+    }
+
+    .content-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -55px auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,209,102,0.38), transparent 68%);
+      transition: transform 0.25s ease;
+    }
+
+    .content-card:hover::after {
+      transform: scale(1.28);
+    }
+
+    .card-number {
+      color: var(--gold);
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 0.82rem;
+      margin-bottom: 22px;
+    }
+
+    .content-card h3 {
+      font-size: 1.6rem;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .content-card p {
+      color: var(--muted);
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    .enter {
+      position: absolute;
+      left: 24px;
+      bottom: 24px;
+      color: var(--gold);
+      font-weight: bold;
+      z-index: 1;
+    }
+
+    .teacher-note {
+      margin-top: 32px;
+      padding: 24px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(255,209,102,0.18), rgba(77,225,255,0.08));
+      border: 1px solid rgba(255,255,255,0.18);
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .teacher-note strong {
+      color: var(--gold);
+    }
+
+    .time-scroll {
+      margin-top: 70px;
+      padding: 28px;
+      border-radius: 36px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: 0 24px 70px rgba(0,0,0,0.28);
+      overflow: hidden;
+    }
+
+    .scroll-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .scroll-head p {
+      max-width: 520px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .side-scroll {
+      display: flex;
+      gap: 22px;
+      overflow-x: auto;
+      padding: 8px 4px 22px;
+      scroll-snap-type: x mandatory;
+    }
+
+    .side-scroll::-webkit-scrollbar {
+      height: 12px;
+    }
+
+    .side-scroll::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.09);
+      border-radius: 999px;
+    }
+
+    .side-scroll::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, var(--gold), var(--pink));
+      border-radius: 999px;
+    }
+
+    .image-panel {
+      min-width: min(78vw, 560px);
+      height: 340px;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+      border: 1px solid rgba(255,255,255,0.22);
+      background: linear-gradient(135deg, rgba(255,255,255,0.14), rgba(255,255,255,0.05));
+      box-shadow: 0 20px 55px rgba(0,0,0,0.28);
+    }
+
+    .image-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.78;
+    }
+
+    .placeholder-art {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 28px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,209,102,0.26), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(77,225,255,0.22), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      color: rgba(255,248,231,0.72);
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: -0.03em;
+    }
+
+    .era-tag {
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.48);
+      border: 1px solid rgba(255,255,255,0.24);
+      color: var(--gold);
+      font-weight: bold;
+      backdrop-filter: blur(8px);
+      z-index: 2;
+    }
+
+    .hotspot {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.92);
+      background: rgba(255,209,102,0.32);
+      box-shadow: 0 0 14px rgba(255,209,102,0.8);
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .hotspot::before {
+      content: "";
+      position: absolute;
+      inset: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    .panel-tooltip {
+      position: absolute;
+      left: 50%;
+      top: 58px;
+      transform: translateX(-50%);
+      width: min(82%, 330px);
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(5,0,18,0.94);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.28);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      font-size: 0.86rem;
+      line-height: 1.35;
+      text-align: center;
+      z-index: 8;
+    }
+
+    .image-panel.show-tooltip .panel-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(4px);
+    }
+
+    .hotspot.one { top: 52%; left: 40%; }
+    .hotspot.two { top: 62%; left: 50%; }
+    .hotspot.three { top: 42%; left: 56%; }
+
+    footer {
+      margin-top: 50px;
+      color: rgba(255,248,231,0.55);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 980px) {
+      header {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card {
+        min-height: 320px;
+      }
+
+      .content-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(94vw, 520px);
+        padding-top: 24px;
+      }
+
+      .intro-strip,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-title {
+        display: block;
+      }
+
+      .section-title p {
+        margin-top: 10px;
+      }
+
+      .content-card {
+        min-height: 245px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <main class="page">
+    <header>
+      <section>
+        <div class="eyebrow"><span class="spark"></span> Communicator Resource</div>
+        <h1>Roger and <span>His Wishes</span></h1>
+        <p class="subtitle">
+          A social sciences and literacy resource exploring Rogernomics, economic change,
+          and the big question behind every powerful wish: what does it give, and what does it take away?
+        </p>
+
+        <div class="intro-strip">
+          <div class="mini-card"><strong>Big idea</strong>Economic choices create winners, losers, opportunities, and consequences.</div>
+          <div class="mini-card"><strong>Text link</strong>Like wishes in stories, reforms can promise transformation but come with a catch.</div>
+          <div class="mini-card"><strong>Student task</strong>Read, compare, judge, and explain whether the wishes were worth it.</div>
+        </div>
+      </section>
+
+      <aside class="hero-card" aria-label="Side scrolling image trial">
+        <div class="hero-scroller-title">
+          <strong>Protection or Choice?</strong>
+          <span>side-scroll → hover dots</span>
+        </div>
+
+        <div class="side-scroll" aria-label="Side scrolling image comparison">
+          <article class="image-panel">
+            <img src="image1.jpg" alt="1970s Toyota New Zealand Thames assembly plant">
+            <div class="era-tag">1970s</div>
+            <button class="hotspot left-tip" style="top: 58%; left: 38%;" data-label="Locally assembled Toyota: cars were built in New Zealand to protect jobs." aria-label="Locally assembled Toyota"></button>
+            <button class="hotspot right-tip" style="top: 42%; left: 60%;" data-label="Protectionist economy: imported cars were restricted so local factories could survive." aria-label="Protectionist economy"></button>
+          </article>
+
+          <article class="image-panel">
+            <img src="image2.jpg" alt="1990s imported car choice">
+            <div class="era-tag">1990s</div>
+            <button class="hotspot right-tip" style="top: 54%; left: 62%;" data-label="Imported cars: more choice, newer technology, and often better prices." aria-label="Imported cars"></button>
+            <button class="hotspot right-tip" style="top: 40%; left: 55%;" data-label="The catch: local assembly jobs became less secure." aria-label="Local jobs affected"></button>
+          </article>
+
+          <article class="image-panel">
+            <img src="image3.jpg" alt="1970s locally made clothing">
+            <div class="era-tag">1970s</div>
+            <button class="hotspot left-tip" style="top: 60%; left: 40%;" data-label="Locally made clothes: factories created jobs inside New Zealand." aria-label="Locally made clothes"></button>
+            <button class="hotspot left-tip" style="top: 38%; left: 48%;" data-label="The catch: fewer brands, fewer styles, and sometimes higher prices." aria-label="Limited clothing choice"></button>
+          </article>
+
+          <article class="image-panel">
+            <img src="image4.jpg" alt="1990s global fashion">
+            <div class="era-tag">1990s</div>
+            <button class="hotspot one" data-label="Open economy: more brands, styles, and overseas products became available." aria-label="More global fashion"></button>
+            <button class="hotspot two" data-label="The catch: some local clothing factories struggled or closed." aria-label="Factories struggled"></button>
+          </article>
+
+          <article class="image-panel">
+            <img src="image5.jpg" alt="1970s local TV and radio">
+            <div class="era-tag">1970s</div>
+            <button class="hotspot left-tip" style="top: 62%; left: 38%;" data-label="Locally made electronics: radios and TVs could be made in New Zealand." aria-label="Locally made electronics"></button>
+            <button class="hotspot right-tip" style="top: 42%; left: 48%;" data-label="The catch: technology could be older, expensive, or less advanced." aria-label="Older technology"></button>
+          </article>
+
+          <article class="image-panel">
+            <img src="image6.jpg" alt="1990s imported electronics">
+            <div class="era-tag">1990s</div>
+            <button class="hotspot left-tip" style="top: 64%; left: 36%;" data-label="Imported electronics: newer technology became easier to access." aria-label="Imported electronics"></button>
+            <button class="hotspot right-tip" style="top: 40%; left: 50%;" data-label="The catch: local electronics manufacturing could not always compete." aria-label="Local manufacturing affected"></button>
+          </article>
+        </div>
+      </aside>
+    </header>
+
+    <section class="contents">
+      <div class="section-title">
+        <h2>Contents</h2>
+        <p>Start with the context, then move into Roger Douglas’s three economic wishes and their consequences.</p>
+      </div>
+
+      <div class="content-grid">
+        <a class="content-card" href="roger-douglas.html">
+          <div class="card-number">Section 01</div>
+          <h3>Who was Roger Douglas?</h3>
+          <p>Learn about the Finance Minister who believed New Zealand needed fewer rules and more business freedom.</p>
+          <div class="enter">Enter →</div>
+        </a>
+
+        <a class="content-card" href="values-change.html">
+          <div class="card-number">Section 02</div>
+          <h3>Values as a Driver of Change</h3>
+          <p>Explore how beliefs, priorities, and ideas about freedom and efficiency can shape economic decisions.</p>
+          <div class="enter">Enter →</div>
+        </a>
+
+        <a class="content-card" href="1980s-challenges.html">
+          <div class="card-number">Section 03</div>
+          <h3>New Zealand and the Challenges of the 1980s</h3>
+          <p>Explore inflation, debt, protectionism, jobs, trade, and why New Zealand was under pressure to change.</p>
+          <div class="enter">Enter →</div>
+        </a>
+
+        <a class="content-card" href="roger-wishes.html">
+          <div class="card-number">Section 04</div>
+          <h3>Roger and His Wishes</h3>
+          <p>Choose each wish, reveal the promise, then uncover the catch hiding behind the magic.</p>
+          <div class="enter">Enter →</div>
+        </a>
+      </div>
+
+      <div class="teacher-note">
+        <strong>Teacher note:</strong> This resource is designed around trade-offs. Students should avoid simple answers like
+        “Rogernomics was good” or “Rogernomics was bad.” The goal is to explain how one economic decision can help some
+        people while hurting others.
+      </div>
+    </section>
+
+    <footer>
+      Manurewa Intermediate | Communicator | Rogernomics Resource
+    </footer>
+  </main>
+  <script>
+    const panels = document.querySelectorAll('.image-panel');
+
+    panels.forEach(panel => {
+      const tooltip = document.createElement('div');
+      tooltip.className = 'panel-tooltip';
+      panel.appendChild(tooltip);
+
+      const hotspots = panel.querySelectorAll('.hotspot');
+
+      hotspots.forEach(hotspot => {
+        hotspot.addEventListener('mouseenter', () => {
+          tooltip.textContent = hotspot.dataset.label;
+          panel.classList.add('show-tooltip');
+        });
+
+        hotspot.addEventListener('focus', () => {
+          tooltip.textContent = hotspot.dataset.label;
+          panel.classList.add('show-tooltip');
+        });
+
+        hotspot.addEventListener('mouseleave', () => {
+          panel.classList.remove('show-tooltip');
+        });
+
+        hotspot.addEventListener('blur', () => {
+          panel.classList.remove('show-tooltip');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Zealand at a Crossroads</title>
+  <style>
+    :root {
+      --bg: #12061f;
+      --bg2: #1d0734;
+      --purple: #2d0b50;
+      --purple2: #41116e;
+      --gold: #ffd166;
+      --gold2: #ffb703;
+      --cyan: #45f3ff;
+      --pink: #ff4fd8;
+      --text: #f8ecff;
+      --muted: #cdb8e8;
+      --glass: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 209, 102, 0.28);
+      --shadow: 0 0 35px rgba(255, 209, 102, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255, 79, 216, 0.18), transparent 35%),
+        radial-gradient(circle at 85% 15%, rgba(69, 243, 255, 0.14), transparent 34%),
+        linear-gradient(135deg, var(--bg), var(--bg2) 55%, #08030f);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(#fff 1px, transparent 1px),
+        radial-gradient(var(--gold) 1px, transparent 1px);
+      background-size: 70px 70px, 120px 120px;
+      background-position: 0 0, 30px 45px;
+      opacity: 0.16;
+      animation: drift 35s linear infinite;
+      z-index: -2;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at center, transparent 0, rgba(0,0,0,0.46) 80%);
+      z-index: -1;
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(-140px); }
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header.hero {
+      min-height: 92vh;
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 34px;
+      align-items: center;
+      padding: 80px 0 60px;
+      position: relative;
+    }
+
+    .section-label {
+      display: inline-block;
+      color: var(--gold);
+      border: 1px solid rgba(255,209,102,0.42);
+      border-radius: 999px;
+      padding: 10px 18px;
+      letter-spacing: 0.28em;
+      font-size: 0.82rem;
+      font-weight: 800;
+      box-shadow: 0 0 22px rgba(255,209,102,0.24);
+      background: rgba(255,255,255,0.06);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 22px 0 18px;
+      font-size: clamp(3rem, 7vw, 7rem);
+      line-height: 0.92;
+      letter-spacing: -0.07em;
+      text-transform: uppercase;
+      text-shadow: 0 0 30px rgba(255,209,102,0.22), 0 0 60px rgba(255,79,216,0.16);
+    }
+
+    h1 span { color: var(--gold); display: block; }
+
+    .subtitle {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.6;
+    }
+
+    .gold-line {
+      height: 2px;
+      width: min(760px, 80%);
+      margin: 30px 0;
+      background: linear-gradient(90deg, var(--gold), var(--cyan), var(--pink), transparent);
+      box-shadow: 0 0 18px rgba(255,209,102,0.7);
+    }
+
+    .hero-image, .card, .quote, .activity, .slider-card, .result-panel, .image-frame {
+      background: linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.035));
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-image {
+      min-height: 560px;
+      overflow: hidden;
+      position: relative;
+      background:
+        radial-gradient(circle at 25% 20%, rgba(255,209,102,0.18), transparent 35%),
+        radial-gradient(circle at 75% 70%, rgba(69,243,255,0.14), transparent 38%),
+        rgba(255,255,255,0.05);
+    }
+
+    .hero-image img, .image-frame img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.78;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: auto 24px 24px 24px;
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(7, 3, 15, 0.72);
+      border: 1px solid rgba(255,255,255,0.16);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-overlay strong {
+      color: var(--gold);
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.2rem;
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.45; transform: translateY(0); }
+      50% { opacity: 1; transform: translateY(8px); }
+    }
+
+    section { padding: 72px 0; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      align-items: center;
+    }
+
+    .card { padding: clamp(24px, 4vw, 42px); position: relative; overflow: visible; }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      margin: 0 0 14px;
+      font-size: 1.45rem;
+      color: var(--gold);
+    }
+
+    p, li {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.72;
+    }
+
+    strong { color: #fff; }
+
+    .mini-label {
+      color: var(--cyan);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+
+    .quote {
+      padding: 30px;
+      border-left: 5px solid var(--gold);
+      position: relative;
+    }
+
+    .quote p {
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      color: white;
+      margin: 0;
+    }
+
+    .old-world {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 24px;
+    }
+
+    .mini-panel {
+      padding: 22px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .mini-panel.good { border-color: rgba(92,255,157,0.22); }
+    .mini-panel.bad { border-color: rgba(255,209,102,0.22); }
+
+    .image-frame {
+      min-height: 390px;
+      overflow: hidden;
+      position: relative;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,209,102,0.16), transparent 35%),
+        rgba(255,255,255,0.04);
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      right: 20px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(7, 3, 15, 0.74);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: white;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .slider-area {
+      display: grid;
+      gap: 28px;
+    }
+
+    .slider-card {
+      padding: clamp(22px, 4vw, 36px);
+      display: grid;
+      gap: 22px;
+    }
+
+
+    .slider-bg-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-bg-card .section-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .slider-bg-card .section-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.32;
+    }
+
+    .slider-bg-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(90deg, rgba(18,6,31,0.72), rgba(18,6,31,0.55));
+      pointer-events: none;
+    }
+
+
+    .slider-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      align-items: end;
+      flex-wrap: wrap;
+    }
+
+    .slider-title { margin: 0; }
+
+    .slider-number {
+      color: var(--gold);
+      font-weight: 900;
+      letter-spacing: 0.16em;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    .tradeoff-labels {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: white;
+      font-weight: 900;
+      font-size: 1rem;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      appearance: none;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--pink), var(--gold), var(--cyan));
+      outline: none;
+      box-shadow: 0 0 18px rgba(255,209,102,0.25);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      appearance: none;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--gold);
+      box-shadow: 0 0 18px rgba(255,209,102,0.5);
+      cursor: pointer;
+    }
+
+    .slider-readout {
+      text-align: center;
+      color: white;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      font-size: 1.1rem;
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .consequence-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .consequence {
+      border-radius: 22px;
+      padding: 22px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      min-height: 210px;
+    }
+
+    .consequence h4 {
+      margin: 0 0 12px;
+      color: var(--gold);
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .consequence ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .result-panel {
+      padding: clamp(28px, 5vw, 52px);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,209,102,0.2), transparent 32%),
+        radial-gradient(circle at 80% 10%, rgba(69,243,255,0.17), transparent 35%),
+        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+    }
+
+    .result-panel h2 { color: var(--gold); }
+
+    .result-text {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      line-height: 1.6;
+      color: white;
+      font-weight: 800;
+    }
+
+    .result-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .result-box {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .result-box h3 { font-size: 1.2rem; }
+
+    .big-question {
+      text-align: center;
+      padding: clamp(38px, 7vw, 76px);
+      border-radius: 36px;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,209,102,0.2), transparent 32%),
+        radial-gradient(circle at 80% 10%, rgba(69,243,255,0.17), transparent 35%),
+        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,209,102,0.38);
+      box-shadow: 0 0 60px rgba(255,209,102,0.22);
+    }
+
+    .big-question h2 {
+      color: var(--gold);
+      text-shadow: 0 0 25px rgba(255,209,102,0.28);
+    }
+
+    .big-question p {
+      max-width: 880px;
+      margin: 0 auto;
+      color: white;
+      font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+      line-height: 1.45;
+      font-weight: 800;
+    }
+
+    .activity-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .activity {
+      padding: 26px;
+      transition: 0.3s ease;
+    }
+
+    .activity:hover {
+      transform: translateY(-6px);
+      border-color: rgba(69,243,255,0.5);
+      box-shadow: 0 0 42px rgba(69,243,255,0.15), 0 0 32px rgba(255,209,102,0.16);
+    }
+
+    .activity-number {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gold);
+      color: #180820;
+      font-weight: 900;
+      box-shadow: 0 0 22px rgba(255,209,102,0.45);
+      margin-bottom: 18px;
+    }
+
+
+    .vocab-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .vocab-chip {
+      position: relative;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(69,243,255,0.1);
+      border: 1px solid rgba(69,243,255,0.28);
+      color: white;
+      font-weight: 900;
+      cursor: help;
+      box-shadow: 0 0 16px rgba(69,243,255,0.08);
+      max-width: 100%;
+    }
+
+    .vocab-chip::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 0;
+      top: calc(100% + 10px);
+      transform: none;
+      width: 230px;
+      max-width: min(230px, calc(100vw - 48px));
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(12, 4, 24, 0.98);
+      border: 1px solid rgba(255,209,102,0.5);
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.42;
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.2s ease;
+      z-index: 999;
+      box-shadow: 0 0 22px rgba(255,209,102,0.25);
+      font-size: 0.92rem;
+      text-align: left;
+      white-space: normal;
+      overflow-wrap: break-word;
+    }
+
+    .vocab-chip:hover::after {
+      opacity: 1;
+      transform: none;
+    }
+
+
+    .story-section {
+      position: relative;
+      overflow: hidden;
+      border-radius: 36px;
+      margin: 30px 0;
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+
+    .story-section .section-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: 36px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,209,102,0.16), transparent 35%),
+        rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,209,102,0.18);
+    }
+
+    .story-section .section-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.52;
+      filter: saturate(1.15) contrast(1.08);
+    }
+
+    .story-section::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      border-radius: 36px;
+      background:
+        linear-gradient(90deg, rgba(18,6,31,0.72), rgba(18,6,31,0.38), rgba(18,6,31,0.65)),
+        radial-gradient(circle at 50% 50%, transparent, rgba(0,0,0,0.18));
+      pointer-events: none;
+    }
+
+    .story-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.14), rgba(255,255,255,0.055));
+    }
+
+    .story-points {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .story-point {
+      padding: 18px 20px;
+      border-left: 5px solid rgba(255,209,102,0.42);
+      border-radius: 18px;
+      background: rgba(0,0,0,0.18);
+    }
+
+    .story-point h3 {
+      margin-bottom: 8px;
+      color: white;
+      font-size: 1.18rem;
+    }
+
+    .story-point p {
+      margin: 0;
+    }
+
+
+
+    .vocab-chip:nth-child(3n)::after,
+    .vocab-chip:last-child::after {
+      left: auto;
+      right: 0;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .image-gallery .image-frame {
+      min-height: 260px;
+    }
+
+    .sort-activity {
+      display: grid;
+      gap: 26px;
+    }
+
+    .label-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .sort-label {
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(69,243,255,0.1);
+      border: 1px solid rgba(69,243,255,0.28);
+      color: white;
+      font-weight: 900;
+      cursor: grab;
+      user-select: none;
+      transition: 0.25s ease;
+    }
+
+    .sort-label:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 18px rgba(69,243,255,0.16);
+    }
+
+    .sort-zones {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .sort-zone {
+      min-height: 360px;
+      border-radius: 28px;
+      border: 2px dashed rgba(255,209,102,0.28);
+      background: rgba(255,255,255,0.05);
+      padding: 24px;
+      transition: 0.3s ease;
+    }
+
+    .sort-zone.hovered {
+      border-color: var(--cyan);
+      box-shadow: 0 0 26px rgba(69,243,255,0.16);
+      transform: scale(1.01);
+    }
+
+    .sort-zone h3 {
+      font-size: 1.55rem;
+    }
+
+    .drop-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      min-height: 230px;
+      align-content: flex-start;
+    }
+
+    .dropped-label {
+      padding: 10px 13px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: white;
+      font-weight: 800;
+    }
+
+
+    .dropped-label.correct {
+      background: rgba(92,255,157,0.16);
+      border-color: rgba(92,255,157,0.72);
+      box-shadow: 0 0 16px rgba(92,255,157,0.18);
+    }
+
+    .dropped-label.wrong {
+      background: rgba(255,79,79,0.16);
+      border-color: rgba(255,79,79,0.78);
+      box-shadow: 0 0 16px rgba(255,79,79,0.18);
+    }
+
+    .feedback-mark {
+      margin-left: 6px;
+      font-weight: 900;
+    }
+
+
+    .check-panel {
+      padding: 26px;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,209,102,0.22);
+    }
+
+    .rating-control {
+      display: grid;
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .rating-number {
+      text-align: center;
+      color: var(--gold);
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: 0 0 18px rgba(255,209,102,0.28);
+    }
+
+    .student-details {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .student-details input {
+      width: 100%;
+      border: 1px solid rgba(69,243,255,0.24);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.07);
+      color: white;
+      padding: 14px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .student-details input::placeholder {
+      color: rgba(248,236,255,0.55);
+    }
+
+    .export-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .export-btn {
+      border: none;
+      border-radius: 16px;
+      padding: 13px 18px;
+      background: linear-gradient(145deg, rgba(255,209,102,0.18), rgba(69,243,255,0.12));
+      border: 1px solid rgba(255,209,102,0.28);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .export-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(255,209,102,0.2);
+    }
+
+    .export-preview {
+      min-height: 110px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.18);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 16px;
+      color: var(--muted);
+      white-space: pre-wrap;
+      line-height: 1.5;
+      font-family: monospace;
+      overflow-x: auto;
+      margin-top: 16px;
+    }
+
+    footer {
+      padding: 36px 0 60px;
+      color: rgba(248,236,255,0.58);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 930px) {
+      header.hero, .grid, .activity-grid, .old-world, .consequence-grid, .result-list, .image-gallery, .sort-zones, .student-details {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-image { min-height: 390px; }
+      .scroll-cue { display: none; }
+      section { padding: 52px 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <div class="section-label">Section 03</div>
+        <h1>New Zealand at a <span>Crossroads</span></h1>
+        <p class="subtitle">Standing at a crossroads: should New Zealand protect the old economy or open itself to a new global future?</p>
+        <div class="gold-line"></div>
+        <p class="subtitle"><strong>Big question:</strong> When the old British world was disappearing, what should New Zealand do next?</p>
+      </div>
+
+      <div class="hero-image">
+        <img src="1980s-crossroads.jpg" alt="New Zealand at a crossroads in the 1980s" onerror="this.style.display='none'">
+        
+      </div>
+
+      <div class="scroll-cue">scroll to explore</div>
+    </header>
+
+    <section class="story-section bg-crossroads">
+      <div class="section-bg">
+        <img src="nz-crossroads-hero.jpg" alt="New Zealand at a crossroads" onerror="this.style.display='none'">
+      </div>
+
+      <div class="grid">
+        <div class="card story-card">
+          <div class="mini-label">The old world</div>
+          <h2>Britain was our main customer</h2>
+
+          <div class="story-points">
+            <div class="story-point">
+              <h3>Britain was our main customer</h3>
+              <p>For many years Britain bought large amounts of New Zealand's meat, wool, butter, cheese, and other exports.</p>
+            </div>
+
+            <div class="story-point">
+              <h3>The Commonwealth connected many countries</h3>
+              <p>New Zealand was part of a wider network of countries linked to Britain through history, trade, and politics.</p>
+            </div>
+
+            <div class="story-point">
+              <h3>Local industries were protected</h3>
+              <p>Rules made it harder for overseas businesses to compete with some New Zealand businesses.</p>
+            </div>
+
+            <div class="story-point">
+              <h3>The system felt secure</h3>
+              <p>Many people knew where New Zealand's customers were and what products the country would sell.</p>
+            </div>
+          </div>
+
+          <div class="vocab-bank" aria-label="Key vocabulary">
+            <span class="vocab-chip" data-tip="A country that bought many of New Zealand's exports for much of the 1900s.">Britain</span>
+            <span class="vocab-chip" data-tip="A group of countries that were once part of the British Empire.">Commonwealth</span>
+            <span class="vocab-chip" data-tip="A customer who regularly buys from you and can be counted on to keep buying.">Reliable customer</span>
+            <span class="vocab-chip" data-tip="Buying and selling goods or services between people, businesses, or countries.">Trade</span>
+            <span class="vocab-chip" data-tip="Rules that help local businesses compete against overseas businesses.">Protection</span>
+          </div>
+        </div>
+
+        <div class="quote">
+          <p>New Zealand had been built for a British world. By the 1980s, that world was disappearing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section bg-night-market">
+      <div class="section-bg">
+        <img src="night-market.jpg" alt="Manurewa Intermediate night market food stall" onerror="this.style.display='none'">
+      </div>
+
+      <div class="grid">
+        <div class="card story-card">
+          <div class="mini-label">Imagine this</div>
+          <h2>A Night Market Challenge</h2>
+          <p>Imagine your class is running a food stall at the Manurewa Intermediate Night Market.</p>
+          <p>You sell sausages, drinks, and snacks. Every year, the parents from your class buy all of your products.</p>
+          <p>Because you know they will come, you can plan ahead. You know roughly how much food to buy, how much money you might make, and what products to sell.</p>
+          <p>Your stall feels secure.</p>
+        </div>
+      </div>
+
+      <div style="height: 26px"></div>
+
+      <div class="card">
+        <div class="mini-label">Then something changes</div>
+        <h2>Your old customers disappear</h2>
+        <p>One year, all of those parents decide they are going to buy from other stalls instead.</p>
+        <p>Suddenly, your class has a problem. You cannot rely on your old customers anymore.</p>
+        <p>You now need to think about how to attract new customers, whether to change your prices, whether to improve your products, and whether to sell something different.</p>
+        <p><strong>The world has changed, and your stall must change too.</strong></p>
+      </div>
+
+      <div style="height: 26px"></div>
+
+      <div class="quote">
+        <p>For many years, Britain was like New Zealand's reliable customer. When that changed, New Zealand had to find new customers, new trading partners, and new ways to bring money into the country.</p>
+      </div>
+    </section>
+
+    <section class="story-section bg-britain-trade">
+      <div class="section-bg">
+        <img src="britain-nz-trade.jpg" alt="Britain and New Zealand trade connection" onerror="this.style.display='none'">
+      </div>
+
+      <div class="grid">
+        <div class="card story-card">
+          <div class="mini-label">The trade-off</div>
+          <h2>The old system had strengths and weaknesses</h2>
+          <p>The old system was not simply good or bad. It protected some people, but it also created problems.</p>
+
+          <div class="vocab-bank" aria-label="Key vocabulary">
+            <span class="vocab-chip" data-tip="Stable, safe, or not likely to suddenly disappear.">Secure</span>
+            <span class="vocab-chip" data-tip="Groups of businesses that make or sell similar goods or services, such as car assembly, clothing, farming, or electronics.">Industry</span>
+            <span class="vocab-chip" data-tip="Rules that shield local businesses from overseas competition.">Protection</span>
+            <span class="vocab-chip" data-tip="When people or businesses try to do better than others by improving price, quality, or service.">Competition</span>
+            <span class="vocab-chip" data-tip="Creating new ideas, products, methods, or designs.">Innovation</span>
+            <span class="vocab-chip" data-tip="Doing something well without wasting time, money, or effort.">Efficiency</span>
+          </div>
+
+          <div class="old-world">
+            <div class="mini-panel good">
+              <h3>What it gave</h3>
+              <ul>
+                <li>Local factories</li>
+                <li>Protected jobs</li>
+                <li>More local control</li>
+                <li>Stable industries</li>
+              </ul>
+            </div>
+
+            <div class="mini-panel bad">
+              <h3>What it cost</h3>
+              <ul>
+                <li>Higher prices</li>
+                <li>Less choice</li>
+                <li>Less competition</li>
+                <li>Less pressure to innovate</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="big-question">
+        <h2>Move the Sliders</h2>
+        <p>Every economic choice creates a trade-off. Move the sliders to explore the choices New Zealand faced.</p>
+
+        <div class="vocab-bank" aria-label="Key vocabulary" style="justify-content:center; margin-top:28px;">
+          <span class="vocab-chip" data-tip="A fixed dollar means the government sets or controls the value of the dollar compared with other currencies.">Fixed dollar</span>
+          <span class="vocab-chip" data-tip="A floating dollar means the dollar's value can rise or fall depending on how much people want to buy or sell it.">Floating dollar</span>
+          <span class="vocab-chip" data-tip="An exchange rate is the price of one country's money compared with another country's money.">Exchange rate</span>
+          <span class="vocab-chip" data-tip="Currency demand means how much people, businesses, or investors want to use or hold a country's money.">Currency demand</span>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="slider-area">
+      <article class="slider-card slider-bg-card">
+        <div class="section-bg">
+          <img src="protected-factory.jpg" alt="Protection and global trade image slot" onerror="this.style.display='none'">
+        </div>
+        <div class="slider-head">
+          <div>
+            <div class="slider-number">Slider One</div>
+            <h2 class="slider-title">Protection ↔ Global Trade</h2>
+          </div>
+          <div class="slider-readout" id="tradeReadout">Balanced</div>
+        </div>
+
+        <div class="tradeoff-labels">
+          <span>Protection</span>
+          <span>Global Trade</span>
+        </div>
+
+        <input type="range" min="0" max="100" value="50" id="tradeSlider">
+
+        <div class="consequence-grid">
+          <div class="consequence">
+            <h4>Benefits</h4>
+            <ul id="tradeBenefits"></ul>
+          </div>
+          <div class="consequence">
+            <h4>Costs</h4>
+            <ul id="tradeCosts"></ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="slider-card slider-bg-card">
+        <div class="section-bg">
+          <img src="foreign-investment.jpg" alt="Local ownership and foreign investment image slot" onerror="this.style.display='none'">
+        </div>
+        <div class="slider-head">
+          <div>
+            <div class="slider-number">Slider Two</div>
+            <h2 class="slider-title">Local Ownership ↔ Foreign Investment</h2>
+          </div>
+          <div class="slider-readout" id="capitalReadout">Balanced</div>
+        </div>
+
+        <div class="tradeoff-labels">
+          <span>Local Ownership</span>
+          <span>Foreign Investment</span>
+        </div>
+
+        <input type="range" min="0" max="100" value="50" id="capitalSlider">
+
+        <div class="consequence-grid">
+          <div class="consequence">
+            <h4>Benefits</h4>
+            <ul id="capitalBenefits"></ul>
+          </div>
+          <div class="consequence">
+            <h4>Costs</h4>
+            <ul id="capitalCosts"></ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="slider-card slider-bg-card">
+        <div class="section-bg">
+          <img src="factory-closures.jpg" alt="Protected economy and competitive economy image slot" onerror="this.style.display='none'">
+        </div>
+        <div class="slider-head">
+          <div>
+            <div class="slider-number">Slider Three</div>
+            <h2 class="slider-title">Protected Economy ↔ Competitive Economy</h2>
+          </div>
+          <div class="slider-readout" id="competitionReadout">Balanced</div>
+        </div>
+
+        <div class="tradeoff-labels">
+          <span>Protected Economy</span>
+          <span>Competitive Economy</span>
+        </div>
+
+        <input type="range" min="0" max="100" value="50" id="competitionSlider">
+
+        <div class="consequence-grid">
+          <div class="consequence">
+            <h4>Benefits</h4>
+            <ul id="competitionBenefits"></ul>
+          </div>
+          <div class="consequence">
+            <h4>Costs</h4>
+            <ul id="competitionCosts"></ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="slider-card slider-bg-card">
+        <div class="section-bg">
+          <img src="floating-dollar.jpg" alt="Fixed and floating dollar image slot" onerror="this.style.display='none'">
+        </div>
+        <div class="slider-head">
+          <div>
+            <div class="slider-number">Slider Four</div>
+            <h2 class="slider-title">Fixed Dollar ↔ Floating Dollar</h2>
+          </div>
+          <div class="slider-readout" id="currencyReadout">Balanced</div>
+        </div>
+
+        <div class="tradeoff-labels">
+          <span>Fixed Dollar</span>
+          <span>Floating Dollar</span>
+        </div>
+
+        <input type="range" min="0" max="100" value="50" id="currencySlider">
+
+        <div class="consequence-grid">
+          <div class="consequence">
+            <h4>Benefits</h4>
+            <ul id="currencyBenefits"></ul>
+          </div>
+          <div class="consequence">
+            <h4>Costs</h4>
+            <ul id="currencyCosts"></ul>
+          </div>
+        </div>
+      </article>
+    </section>
+
+
+    <section class="story-section bg-roger-crossroads">
+      <div class="section-bg">
+        <img src="roger-crossroads.jpg" alt="Roger Douglas economic crossroads" onerror="this.style.display='none'">
+      </div>
+
+      <div class="grid">
+        <div class="card story-card">
+          <div class="mini-label">Roger Douglas's answer</div>
+          <h2>Open the country</h2>
+          <p>In 1984, Roger Douglas believed New Zealand needed to become more connected to the global economy.</p>
+          <p>His answer was to open New Zealand to more trade, more investment, and more competition.</p>
+          <p>Supporters believed this would make New Zealand stronger, more efficient, and more attractive to the world. Critics believed the costs would fall heavily on workers, local industries, and communities.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="big-question">
+        <h2>There Was No Perfect Answer</h2>
+        <p>New Zealand was not choosing between a good option and a bad option. It was choosing which trade-offs it was willing to accept.</p>
+      </div>
+    </section>
+
+
+    <section>
+      <div class="mini-label">Student activity</div>
+      <h2>Sort the Trade-Offs</h2>
+
+      <div class="card sort-activity">
+        <p>Drag each label into the box where it best fits. Some ideas belong more strongly with the old British Empire-supported economy. Others belong more strongly with the newer Rogernomics-style economy.</p>
+
+        <div class="label-bank" id="labelBank">
+          <div class="sort-label" draggable="true" data-answer="new">Consumer choice</div>
+          <div class="sort-label" draggable="true" data-answer="new">Global connections</div>
+          <div class="sort-label" draggable="true" data-answer="new">Access to technology</div>
+          <div class="sort-label" draggable="true" data-answer="old">Local ownership</div>
+          <div class="sort-label" draggable="true" data-answer="old">Local decision making</div>
+          <div class="sort-label" draggable="true" data-answer="new">Innovation</div>
+          <div class="sort-label" draggable="true" data-answer="new">Efficiency</div>
+          <div class="sort-label" draggable="true" data-answer="new">Lower prices</div>
+          <div class="sort-label" draggable="true" data-answer="new">Factory closures</div>
+          <div class="sort-label" draggable="true" data-answer="new">Job losses</div>
+          <div class="sort-label" draggable="true" data-answer="old">Local production protected</div>
+          <div class="sort-label" draggable="true" data-answer="old">Protected jobs</div>
+          <div class="sort-label" draggable="true" data-answer="old">Less overseas investment</div>
+          <div class="sort-label" draggable="true" data-answer="old">Slower development</div>
+          <div class="sort-label" draggable="true" data-answer="new">Winners and losers</div>
+          <div class="sort-label" draggable="true" data-answer="new">Community stress</div>
+          <div class="sort-label" draggable="true" data-answer="old">Protected factories</div>
+          <div class="sort-label" draggable="true" data-answer="old">Higher prices</div>
+          <div class="sort-label" draggable="true" data-answer="old">Government controls dollar value</div>
+          <div class="sort-label" draggable="true" data-answer="old">Fixed exchange rate</div>
+          <div class="sort-label" draggable="true" data-answer="new">Dollar traded openly</div>
+          <div class="sort-label" draggable="true" data-answer="new">Floating exchange rate</div>
+          <div class="sort-label" draggable="true" data-answer="new">Dollar value rises and falls</div>
+        </div>
+
+        <div class="sort-zones">
+          <div class="sort-zone" data-zone="old">
+            <h3>Old British Empire-Supported Economy</h3>
+            <p>Protected, local, more controlled, and connected to the old British trading world.</p>
+            <div class="drop-area" id="oldDrop"></div>
+          </div>
+
+          <div class="sort-zone" data-zone="new">
+            <h3>New Modern Rogernomics Economy</h3>
+            <p>Open, global, competitive, and designed to attract trade and investment.</p>
+            <div class="drop-area" id="newDrop"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="check-panel">
+        <div class="mini-label">Check your understanding</div>
+        <h2>How much did I understand?</h2>
+        <p>Move the slider to rate your understanding of this page from 1 to 10.</p>
+
+        <div class="rating-control">
+          <div class="rating-number" id="understandingNumber">5</div>
+          <input type="range" min="1" max="10" value="5" id="understandingSlider">
+        </div>
+
+        <div class="student-details">
+          <input id="studentName" type="text" placeholder="Student name">
+          <input id="studentClass" type="text" placeholder="Class / Room">
+          <input id="teacherEmail" type="email" placeholder="Teacher email optional">
+        </div>
+
+        <div class="export-buttons">
+          <button class="export-btn" id="previewWorkBtn">👀 Preview My Work</button>
+          <button class="export-btn" id="downloadCsvBtn">⬇️ Download CSV</button>
+          <button class="export-btn" id="emailWorkBtn">✉️ Open Email</button>
+        </div>
+
+        <div class="export-preview" id="exportPreview">Your exported answers will appear here.</div>
+      </div>
+    </section>
+
+
+    <footer>
+      Roger Douglas Series • New Zealand at a Crossroads • Manurewa Intermediate
+    </footer>
+  </main>
+
+  <script>
+    const tradeSlider = document.getElementById('tradeSlider');
+    const capitalSlider = document.getElementById('capitalSlider');
+    const competitionSlider = document.getElementById('competitionSlider');
+    const currencySlider = document.getElementById('currencySlider');
+
+    const content = {
+      trade: {
+        low: {
+          readout: 'High Protection',
+          benefits: ['More local factories', 'More protected jobs', 'More local control', 'Local businesses are sheltered from overseas competition'],
+          costs: ['Higher prices', 'Less choice', 'Less international trade', 'Harder to connect with the global economy']
+        },
+        mid: {
+          readout: 'Balanced Trade',
+          benefits: ['Some local industries are protected', 'Some global products are available', 'New Zealand keeps some control while still trading'],
+          costs: ['Some businesses still face pressure', 'Some prices may remain high', 'The country may not fully satisfy either side']
+        },
+        high: {
+          readout: 'High Global Trade',
+          benefits: ['More overseas products', 'More choice', 'New technology', 'More trading partners'],
+          costs: ['Some local factories may close', 'Some workers may lose jobs', 'Less protection for local industries']
+        }
+      },
+      capital: {
+        low: {
+          readout: 'High Local Ownership',
+          benefits: ['More local control', 'Assets stay in New Zealand', 'Decisions are more likely to be made locally'],
+          costs: ['Less overseas investment', 'Less money available for growth', 'Fewer international connections']
+        },
+        mid: {
+          readout: 'Balanced Investment',
+          benefits: ['Some overseas money can enter', 'Some local control remains', 'Investment is allowed but not unlimited'],
+          costs: ['Still difficult to balance control and growth', 'Some people may think it is too open', 'Others may think it is too closed']
+        },
+        high: {
+          readout: 'High Foreign Investment',
+          benefits: ['More overseas money enters New Zealand', 'More development opportunities', 'More international connections', 'More demand for New Zealand dollars'],
+          costs: ['Property may become more expensive', 'More foreign ownership', 'Less local control over some assets']
+        }
+      },
+      competition: {
+        low: {
+          readout: 'Protected Economy',
+          benefits: ['Businesses are sheltered', 'Jobs may feel more secure', 'Government controls more of the economy'],
+          costs: ['Less innovation', 'Less pressure to improve', 'Higher costs', 'Businesses may become inefficient']
+        },
+        mid: {
+          readout: 'Balanced Competition',
+          benefits: ['Some pressure to improve', 'Some industries remain protected', 'Businesses face competition but not all at once'],
+          costs: ['Change may be slow', 'Some industries may still be inefficient', 'Some workers still face uncertainty']
+        },
+        high: {
+          readout: 'Competitive Economy',
+          benefits: ['More innovation', 'Greater efficiency', 'Lower costs', 'Businesses have to improve to survive'],
+          costs: ['There are winners and losers', 'Some communities may struggle', 'Some workers may lose jobs']
+        }
+      },
+      currency: {
+        low: {
+          readout: 'Fixed Dollar',
+          benefits: ['Government has more control over the dollar', 'Import and export prices can feel more predictable', 'Businesses know the official exchange rate'],
+          costs: ['The dollar may not match what the world thinks it is worth', 'Harder to attract people to trade in New Zealand dollars', 'A fixed dollar works poorly if people do not want what New Zealand is selling']
+        },
+        mid: {
+          readout: 'Managed Dollar',
+          benefits: ['Some government control remains', 'Some market pressure is allowed', 'Change can happen more slowly'],
+          costs: ['Still difficult to know the true value of the dollar', 'Can create uncertainty for trade and investment', 'May not fully satisfy either side']
+        },
+        high: {
+          readout: 'Floating Dollar',
+          benefits: ['The dollar can be traded openly', 'If confidence in New Zealand rises, the dollar can rise too', 'The value of the dollar reflects demand from trade and investment'],
+          costs: ['The dollar can fall if confidence drops', 'Import prices can rise when the dollar weakens', 'The economy becomes more exposed to global markets']
+        }
+      }
+    };
+
+    function level(value) {
+      if (value < 34) return 'low';
+      if (value < 67) return 'mid';
+      return 'high';
+    }
+
+    function renderList(id, items) {
+      const element = document.getElementById(id);
+      element.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+    }
+
+    function updateSlider(prefix, slider) {
+      const selected = content[prefix][level(parseInt(slider.value))];
+      document.getElementById(prefix + 'Readout').textContent = selected.readout;
+      renderList(prefix + 'Benefits', selected.benefits);
+      renderList(prefix + 'Costs', selected.costs);
+    }
+
+    function updatePage() {
+      updateSlider('trade', tradeSlider);
+      updateSlider('capital', capitalSlider);
+      updateSlider('competition', competitionSlider);
+      updateSlider('currency', currencySlider);
+    }
+
+    [tradeSlider, capitalSlider, competitionSlider, currencySlider].forEach(slider => {
+      slider.addEventListener('input', updatePage);
+    });
+
+    updatePage();
+
+    const sortLabels = document.querySelectorAll('.sort-label');
+    const sortZones = document.querySelectorAll('.sort-zone');
+    let draggedLabel = null;
+
+    sortLabels.forEach(label => {
+      label.addEventListener('dragstart', () => {
+        draggedLabel = label;
+      });
+    });
+
+    sortZones.forEach(zone => {
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+        zone.classList.add('hovered');
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.classList.remove('hovered');
+      });
+
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        zone.classList.remove('hovered');
+        if (!draggedLabel) return;
+
+        const dropped = document.createElement('div');
+        const isCorrect = draggedLabel.dataset.answer === zone.dataset.zone;
+        dropped.className = 'dropped-label ' + (isCorrect ? 'correct' : 'wrong');
+        dropped.innerHTML = `${draggedLabel.textContent}<span class="feedback-mark">${isCorrect ? '✓' : '✗'}</span>`;
+        dropped.dataset.answer = draggedLabel.dataset.answer;
+        dropped.dataset.placed = zone.dataset.zone;
+        zone.querySelector('.drop-area').appendChild(dropped);
+
+        draggedLabel.remove();
+        draggedLabel = null;
+      });
+    });
+
+    const understandingSlider = document.getElementById('understandingSlider');
+    const understandingNumber = document.getElementById('understandingNumber');
+
+    understandingSlider.addEventListener('input', () => {
+      understandingNumber.textContent = understandingSlider.value;
+    });
+
+    function getPlacedLabels(zoneId) {
+      const zone = document.getElementById(zoneId);
+      return Array.from(zone.querySelectorAll('.dropped-label')).map(item => item.childNodes[0].textContent);
+    }
+
+    function getAccuracy() {
+      const allDropped = Array.from(document.querySelectorAll('.dropped-label'));
+      if (allDropped.length === 0) return 'No labels placed yet';
+      const correct = allDropped.filter(item => item.dataset.answer === item.dataset.placed).length;
+      return `${correct}/${allDropped.length}`;
+    }
+
+    function buildCsvRows() {
+      const student = document.getElementById('studentName').value.trim();
+      const room = document.getElementById('studentClass').value.trim();
+      const email = document.getElementById('teacherEmail').value.trim();
+      const oldLabels = getPlacedLabels('oldDrop').join(' | ');
+      const newLabels = getPlacedLabels('newDrop').join(' | ');
+      const understanding = understandingSlider.value;
+      const accuracy = getAccuracy();
+
+      return [
+        ['Student Name', 'Class / Room', 'Teacher Email', 'Old Economy Labels', 'New Economy Labels', 'Understanding Rating', 'Sort Accuracy'],
+        [student, room, email, oldLabels, newLabels, understanding, accuracy]
+      ];
+    }
+
+    function escapeCsv(value) {
+      return `"${String(value).replaceAll('"', '""')}"`;
+    }
+
+    function buildCsv() {
+      return buildCsvRows().map(row => row.map(escapeCsv).join(',')).join('\n');
+    }
+
+    document.getElementById('previewWorkBtn').addEventListener('click', () => {
+      document.getElementById('exportPreview').textContent = buildCsv();
+    });
+
+    document.getElementById('downloadCsvBtn').addEventListener('click', () => {
+      const csv = buildCsv();
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const name = document.getElementById('studentName').value.trim() || 'student';
+      a.href = url;
+      a.download = `${name}-1980s-challenges.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('emailWorkBtn').addEventListener('click', () => {
+      const email = document.getElementById('teacherEmail').value.trim();
+      const subject = encodeURIComponent('1980s Challenges Work');
+      const body = encodeURIComponent(buildCsv());
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>

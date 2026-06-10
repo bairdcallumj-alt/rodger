@@ -195,7 +195,7 @@
     }
 
     .quote::before {
-      content: "“";
+      content: """;
       position: absolute;
       right: 24px;
       top: -12px;
@@ -363,7 +363,8 @@
     .image-frame img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
       position: absolute;
       inset: 0;
       opacity: 0.88;
@@ -998,318 +999,144 @@
       margin-top: 22px;
     }
 
-    .hover-card {
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      transition: 0.3s ease;
-    }
-
-    .reflection-link {
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      display: grid;
-      gap: 10px;
-    }
-
-    .reflection-label {
-      color: var(--cyan);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-weight: 900;
-    }
-
-    .reflection-example {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .reflection-arrow {
-      color: var(--gold);
-      font-size: 1.2rem;
-      font-weight: 900;
-    }
-
-    .reflection-stat {
-      margin-top: 10px;
-      color: white;
-      font-size: 0.9rem;
-      font-weight: 700;
-      line-height: 1.5;
-      padding: 10px 12px;
-      border-radius: 14px;
-      background: rgba(255,209,102,0.08);
-      border: 1px solid rgba(255,209,102,0.16);
-    }
-
-    .reflection-match {
-      margin-top: 16px;
-      display: grid;
-      gap: 14px;
-    }
-
-    .reflection-bank {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .reflection-card {
-      padding: 10px 14px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(69,243,255,0.22);
-      font-weight: 800;
-      cursor: grab;
-      transition: 0.3s ease;
-      user-select: none;
-      font-size: 0.9rem;
-    }
-
-    .reflection-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 18px rgba(69,243,255,0.14);
-    }
-
-    .reflection-drop {
-      min-height: 70px;
-      border-radius: 16px;
-      border: 2px dashed rgba(255,209,102,0.22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 12px;
-      color: var(--muted);
-      transition: 0.3s ease;
-      font-weight: 700;
-    }
-
-    .reflection-drop.hovered {
-      border-color: var(--cyan);
-      box-shadow: 0 0 20px rgba(69,243,255,0.16);
-    }
-
-    .reflection-drop.correct {
-      border-color: #5cff9d;
-      background: rgba(92,255,157,0.08);
-      color: white;
-    }
-
-    .send-work-panel {
-      margin-top: 32px;
-      padding: 30px;
-      border-radius: 30px;
-      background: linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.035));
-      border: 1px solid rgba(255,209,102,0.28);
-      box-shadow: var(--shadow);
-      display: grid;
-      gap: 18px;
-    }
-
-    .student-details {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-
-    @media (max-width: 880px) {
-      .student-details { grid-template-columns: 1fr; }
-    }
-
-    .student-details input {
-      width: 100%;
-      border: 1px solid rgba(69,243,255,0.24);
-      border-radius: 16px;
-      background: rgba(255,255,255,0.07);
-      color: white;
-      padding: 14px;
-      font-size: 1rem;
-      outline: none;
-    }
-
-    .student-details input::placeholder {
-      color: rgba(248,236,255,0.55);
-    }
-
-    .export-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .export-btn {
-      border: none;
-      border-radius: 16px;
-      padding: 13px 18px;
-      background: linear-gradient(145deg, rgba(255,209,102,0.18), rgba(69,243,255,0.12));
+    .choice-btn {
+      padding: 18px 22px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, rgba(255,209,102,0.14), rgba(69,243,255,0.1));
       border: 1px solid rgba(255,209,102,0.28);
       color: white;
       font-weight: 900;
       cursor: pointer;
       transition: 0.3s ease;
+      line-height: 1.4;
     }
 
-    .export-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px rgba(255,209,102,0.2);
+    .choice-btn:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,209,102,0.6);
+      box-shadow: 0 0 22px rgba(255,209,102,0.2);
     }
 
-    .export-preview {
-      min-height: 120px;
-      border-radius: 18px;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 16px;
-      color: var(--muted);
-      white-space: pre-wrap;
-      line-height: 1.5;
-      font-family: monospace;
-      overflow-x: auto;
+    .data-flow-column {
+      padding: 26px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,209,102,0.18);
+      background: rgba(255,255,255,0.06);
     }
 
-    .big-idea {
-      text-align: center;
-      padding: clamp(38px, 7vw, 76px);
-      border-radius: 36px;
-      background:
-        radial-gradient(circle at 20% 20%, rgba(255,209,102,0.2), transparent 32%),
-        radial-gradient(circle at 80% 10%, rgba(69,243,255,0.17), transparent 35%),
-        linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
-      border: 1px solid rgba(255,209,102,0.38);
-      box-shadow: 0 0 60px rgba(255,209,102,0.22);
-    }
-
-    .big-idea h2 {
+    .data-flow-column h4 {
       color: var(--gold);
-      text-shadow: 0 0 25px rgba(255,209,102,0.28);
-    }
-
-    .big-idea p {
-      max-width: 850px;
-      margin: 0 auto;
-      color: white;
-      font-size: clamp(1.3rem, 2.4vw, 2rem);
-      line-height: 1.45;
-      font-weight: 800;
-    }
-
-    .mini-label {
-      color: var(--cyan);
-      letter-spacing: 0.18em;
+      font-size: 1.1rem;
+      margin: 0 0 18px;
       text-transform: uppercase;
-      font-size: 0.78rem;
-      font-weight: 900;
-      margin-bottom: 12px;
+      letter-spacing: 0.08em;
     }
 
-    footer {
-      padding: 36px 0 60px;
-      color: rgba(248,236,255,0.58);
-      text-align: center;
-      font-size: 0.9rem;
+    .data-flow-items {
+      display: grid;
+      gap: 12px;
     }
 
-    @media (max-width: 880px) {
-      .grid, .comparison, .activities { grid-template-columns: 1fr; }
-      .symbol-match { grid-template-columns: 1fr; }
-      .word-column, .symbol-column { gap: 12px; }
-      .vocab-bank { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .drag-word { min-height: 64px; }
-      .builder-zones, .sequence-zones, .quality-zones { grid-template-columns: 1fr; }
-      .arrow-flow { grid-template-columns: 1fr; }
-      .arrow { transform: rotate(90deg); justify-self: center; }
-      .score { grid-template-columns: 1fr; }
-      .choice-grid { grid-template-columns: 1fr; }
-      section { padding: 52px 0; }
+    .data-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.95rem;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .prediction-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .prediction-card {
+      padding: 22px;
+      border-radius: 26px;
+      background: rgba(255,209,102,0.08);
+      border: 1px solid rgba(255,209,102,0.24);
+      position: relative;
+    }
+
+    .prediction-card h4 {
+      color: var(--gold);
+      font-size: 1.1rem;
+      margin: 0 0 12px;
+    }
+
+    .prediction-card p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 980px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .builder-zones,
+      .comparison,
+      .quality-zones {
+        grid-template-columns: 1fr;
+      }
+
+      .activities {
+        grid-template-columns: 1fr;
+      }
+
+      .prediction-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sequence-zones {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="page">
+  <div class="page">
     <header class="hero">
       <div>
         <div class="section-label">SECTION 02</div>
-        <h1>Values as a Driver of Change</h1>
-        <p class="subtitle">How beliefs and values can shape economies, schools, and entire countries.</p>
+        <h1>Values as a <br>Driver of Change</h1>
+        <p class="subtitle">
+          Explore how beliefs, priorities, and ideas about freedom and efficiency shape economic decisions
+        </p>
         <div class="gold-line"></div>
-        <p class="subtitle"><strong>Competition and challenge</strong> are not just personal values. They can become powerful mechanisms that push whole systems to improve.</p>
       </div>
-      <div class="scroll-cue">scroll to explore</div>
+      <div class="scroll-cue">Scroll to explore</div>
     </header>
 
     <section>
       <div class="grid">
-        <div class="card">
-          <div class="mini-label">Core idea</div>
-          <h2>From values to action</h2>
-          <p>At <strong>Manurewa Intermediate</strong>, we have the values of <strong>challenge</strong> and <strong>competition</strong>.</p>
-          <p>Challenge and competition are important for individuals because they encourage people to improve themselves, work hard, and learn how to compete fairly with others.</p>
-          <p>However, challenge and competition can also be used as <strong>mechanisms</strong> to drive improvement across entire schools, countries, and economies.</p>
+        <div>
+          <h2>What Are Economic Values?</h2>
+          <p>
+            Economic values are the beliefs and priorities that guide how people, governments, and businesses make decisions about resources, work, and money.
+          </p>
+          <p>
+            <strong>For example:</strong> Some people value job security above all else. Others value getting the lowest price. Both are reasonable, but they lead to different economic choices.
+          </p>
         </div>
         <div class="quote">
-          <p>A value becomes powerful when it stops being just a belief and starts shaping what people actually do.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <div class="mini-label">Interactive vocabulary</div>
-        <h2>Key Vocab</h2>
-        <p>Hover over each word to reveal its meaning. Then match the words to the correct symbols.</p>
-        <div class="key-vocab">
-          <span class="vocab" data-tip="Trying to do better than others in a fair contest or system.">competition</span>
-          <span class="vocab" data-tip="A difficult task or goal that pushes someone to improve.">challenge</span>
-          <span class="vocab" data-tip="Something that acts upon something else and helps make something happen.">mechanism</span>
-          <span class="vocab" data-tip="Checking, watching, or supervising to make sure people do what they should.">oversight</span>
-          <span class="vocab" data-tip="Doing something well without wasting time, money, or effort.">efficiency</span>
-          <span class="vocab" data-tip="Getting better over time.">improvement</span>
-          <span class="vocab" data-tip="The system of producing, buying, selling, and using goods and services.">economy</span>
-          <span class="vocab" data-tip="Creating new ideas, products, methods, or designs.">innovation</span>
-          <span class="vocab" data-tip="What people want or need to buy or use.">demand</span>
-          <span class="vocab" data-tip="How much of something is available for people to buy or use.">supply</span>
-        </div>
-
-        <div class="symbol-match">
-          <div class="word-column" id="vocabBank">
-            <div class="drag-word" draggable="true" data-word="competition">competition</div>
-            <div class="drag-word" draggable="true" data-word="challenge">challenge</div>
-            <div class="drag-word" draggable="true" data-word="mechanism">mechanism</div>
-            <div class="drag-word" draggable="true" data-word="oversight">oversight</div>
-            <div class="drag-word" draggable="true" data-word="efficiency">efficiency</div>
-            <div class="drag-word" draggable="true" data-word="improvement">improvement</div>
-            <div class="drag-word" draggable="true" data-word="economy">economy</div>
-            <div class="drag-word" draggable="true" data-word="innovation">innovation</div>
-            <div class="drag-word" draggable="true" data-word="demand">demand</div>
-            <div class="drag-word" draggable="true" data-word="supply">supply</div>
-          </div>
-
-          <div class="symbol-column" id="symbolBank">
-            <div class="symbol-target" data-match="competition"><div class="symbol-icon">🏃</div><div class="symbol-label">Two athletes racing</div></div>
-            
-
-        <div class="symbol-target" data-match="challenge"><div class="symbol-icon">💪</div><div class="symbol-label">Arm wrestle challenge</div></div>
-              <div class="symbol-target" data-match="mechanism"><div class="symbol-icon">🚪</div><div class="symbol-label">Door hinge</div></div>
-              <div class="symbol-target" data-match="oversight"><div class="symbol-icon">🌊</div><div class="symbol-label">Lighthouse watching over ships</div></div>
-              <div class="symbol-target" data-match="efficiency"><div class="symbol-icon">⚙️</div><div class="symbol-label">Fast moving gear system</div></div>
-              <div class="symbol-target" data-match="improvement"><div class="symbol-icon">📈</div><div class="symbol-label">Growth graph moving upward</div></div>
-              <div class="symbol-target" data-match="economy"><div class="symbol-icon">🏙️</div><div class="symbol-label">Busy city economy</div></div>
-              <div class="symbol-target" data-match="innovation"><div class="symbol-icon">💡</div><div class="symbol-label">New invention idea</div></div>
-              <div class="symbol-target" data-match="demand"><div class="symbol-icon">🛒</div><div class="symbol-label">Lots of people wanting products</div></div>
-              <div class="symbol-target" data-match="supply"><div class="symbol-icon">📦</div><div class="symbol-label">Boxes ready to deliver</div></div>
-            </div>
-          </div>
-        </div>
-          </div>
+          <p>
+            "All economic choices reflect someone's values about what matters most."
+          </p>
         </div>
       </div>
     </section>
@@ -1317,62 +1144,23 @@
     <section>
       <div class="grid">
         <div class="card">
-          <div class="mini-label">What is a mechanism?</div>
-          <h2>Something that acts</h2>
-          <p>A <strong>mechanism</strong> is something that acts upon something else.</p>
-          <p>A hinge is a mechanism because it allows a door to move. Your arms and legs are mechanisms because they help your body move.</p>
-          <p>Competition can also act as a mechanism. Instead of needing lots of inspectors and constant oversight to force people to improve, competition can encourage people and organisations to improve naturally because they want to succeed.</p>
+          <h3>Protection</h3>
+          <p>
+            <strong>Value:</strong> Keep jobs and businesses safe by controlling what comes in or out.
+          </p>
+          <p>
+            <strong>Policy:</strong> Limit imports, support local industry, restrict competition.
+          </p>
+          <p>
+            <strong>Who benefits?</strong> Workers in protected industries, local businesses.
+          </p>
+          <p>
+            <strong>The catch:</strong> Consumers might pay more, technology might lag, and protected businesses might become inefficient.
+          </p>
         </div>
-        <div class="diagram mechanism-builder">
-          <div class="builder-title">Build the Mechanism</div>
-
-          <p style="text-align:center;">Drag the correct ideas into the three stages to show how a value becomes a mechanism that creates an outcome.</p>
-
-          <div class="builder-bank">
-            <div class="builder-card" draggable="true" data-builder="value">Competition</div>
-            <div class="builder-card" draggable="true" data-builder="value">Desire to change</div>
-            <div class="builder-card" draggable="true" data-builder="value">People noticing problems</div>
-
-            <div class="builder-card" draggable="true" data-builder="mechanism">Push to improve</div>
-            <div class="builder-card" draggable="true" data-builder="mechanism">Encouraging people to compete</div>
-            <div class="builder-card" draggable="true" data-builder="mechanism">Public comparison</div>
-
-            <div class="builder-card" draggable="true" data-builder="outcome">Better results</div>
-            <div class="builder-card" draggable="true" data-builder="outcome">Better quality</div>
-            <div class="builder-card" draggable="true" data-builder="outcome">More innovation</div>
-
-            <div class="builder-card" draggable="true" data-builder="wrong">More homework</div>
-            <div class="builder-card" draggable="true" data-builder="wrong">Random luck</div>
-            <div class="builder-card" draggable="true" data-builder="wrong">Bigger buildings</div>
-          </div>
-
-          <div class="builder-zones">
-            <div class="builder-zone" data-zone="value">
-              <div>
-                <h4>VALUE</h4>
-                <p>The belief or idea that starts the process.</p>
-                <div class="zone-content">?</div>
-              </div>
-              <div class="builder-arrow">→</div>
-            </div>
-
-            <div class="builder-zone" data-zone="mechanism">
-              <div>
-                <h4>MECHANISM</h4>
-                <p>How the value acts upon people or systems.</p>
-                <div class="zone-content">?</div>
-              </div>
-              <div class="builder-arrow">→</div>
-            </div>
-
-            <div class="builder-zone" data-zone="outcome">
-              <div>
-                <h4>OUTCOME</h4>
-                <p>The final result created by the mechanism.</p>
-                <div class="zone-content">?</div>
-              </div>
-            </div>
-          </div>
+        <div class="image-frame">
+          <img src="red-boys.jpg" alt="Group of boys in red celebrating at an event">
+          <div class="placeholder">Image Loading...</div>
         </div>
       </div>
     </section>
@@ -1380,963 +1168,55 @@
     <section>
       <div class="grid">
         <div class="image-frame">
-          <img src="schoolcompetition.jpg" alt="School competition image placeholder" onerror="this.style.display='none'">
-          
+          <img src="placeholder-2.jpg" alt="Marketplace diversity">
+          <div class="placeholder">Image Loading...</div>
         </div>
         <div class="card">
-          <div class="mini-label">School example</div>
-          <h2>School Competition</h2>
-          <p>Take, for example, the whānau competition at Manurewa Intermediate.</p>
-          <p>Mr Taylor knows that the whānau leaders will work hard to get students to school because the whānau are competing with one another.</p>
-          <p>Every week, attendance results are announced publicly. This encourages each whānau to improve attendance, punctuality, and uniform standards.</p>
-        </div>
-      </div>
-
-      <div style="height: 26px"></div>
-
-      <div class="leaderboard">
-        <h3>Competition Dial Activity</h3>
-
-        <div class="competition-control">
-          <div class="competition-level">Competition Level: <span id="competitionValue">HIGH</span></div>
-
-          <div class="slider-wrap">
-            <div class="slider-labels">
-              <span>Less Competition</span>
-              <span>More Competition</span>
-            </div>
-
-            <input type="range" min="0" max="100" value="80" class="competition-slider" id="competitionSlider">
-          </div>
-
-          <div class="attendance-grid">
-            <div class="leader-row"><strong>Kauri</strong><div class="bar" id="bar1" style="width: 94%"></div><strong id="score1">94%</strong></div>
-            <div class="leader-row"><strong>Kōwhai</strong><div class="bar" id="bar2" style="width: 91%"></div><strong id="score2">91%</strong></div>
-            <div class="leader-row"><strong>Rimu</strong><div class="bar" id="bar3" style="width: 88%"></div><strong id="score3">88%</strong></div>
-            <div class="leader-row"><strong>Tawa</strong><div class="bar" id="bar4" style="width: 84%"></div><strong id="score4">84%</strong></div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top: 10px;">
-          <div class="mini-label">Mix and match</div>
-          <h3>Put these in the correct order</h3>
-          <p>Build school-based improvement chains by placing the correct ideas into Step 1, Step 2, and Step 3.</p>
-
-          <div class="sequence-builder">
-            <div class="sequence-bank">
-              <div class="sequence-card" draggable="true" data-sequence="step1">Kids not coming to school</div>
-              <div class="sequence-card" draggable="true" data-sequence="step2">Better follow-up systems</div>
-              <div class="sequence-card" draggable="true" data-sequence="step3">Community becomes healthier</div>
-
-              <div class="sequence-card" draggable="true" data-sequence="step1">Attendance data is shared</div>
-              <div class="sequence-card" draggable="true" data-sequence="step2">Whānau try to improve</div>
-              <div class="sequence-card" draggable="true" data-sequence="step3">Attendance improves</div>
-
-              <div class="sequence-card" draggable="true" data-sequence="step1">Students falling behind</div>
-              <div class="sequence-card" draggable="true" data-sequence="step2">Teachers change strategies</div>
-              <div class="sequence-card" draggable="true" data-sequence="step3">Learning improves</div>
-
-              <div class="sequence-card" draggable="true" data-sequence="wrong">More paperwork</div>
-              <div class="sequence-card" draggable="true" data-sequence="wrong">Random guessing</div>
-              <div class="sequence-card" draggable="true" data-sequence="wrong">Longer lunch breaks</div>
-            </div>
-
-            <div class="sequence-zones">
-              <div class="sequence-zone" data-order="step1">
-                <div>
-                  <h4>STEP 1</h4>
-                  <div class="sequence-content">What problem or situation starts the process?</div>
-                </div>
-              </div>
-
-              <div class="sequence-zone" data-order="step2">
-                <div>
-                  <h4>STEP 2</h4>
-                  <div class="sequence-content">What mechanism or response happens next?</div>
-                </div>
-              </div>
-
-              <div class="sequence-zone" data-order="step3">
-                <div>
-                  <h4>STEP 3</h4>
-                  <div class="sequence-content">What outcome or improvement happens?</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-
-      <div class="quote" style="margin-top: 26px;">
-        <p>In this case, competition acts as a mechanism that drives continuous improvement across the school.</p>
-      </div>
-    </section>
-
-    <section>
-      <div class="grid">
-        <div class="card">
-          <div class="mini-label">Business example</div>
-          <h2>Furniture with no competition</h2>
-          <p>Imagine a furniture company with no competition.</p>
-          <p>If the company has a government contract and nobody else can compete with them, they could produce poor quality furniture, uncomfortable chairs, bad colours, and limited choices.</p>
-          <p>People would have little ability to demand improvement.</p>
-        </div>
-        <div class="card">
-          <div class="mini-label">When competition arrives</div>
-          <h2>Businesses must improve</h2>
-          <p>Once several companies compete with each other, businesses must offer better quality, lower prices, more innovation, and better design.</p>
-          <p>In this case, competition becomes a mechanism that drives improvement.</p>
+          <h3>Freedom &amp; Efficiency</h3>
+          <p>
+            <strong>Value:</strong> Let the market decide. Less regulation, more competition, lower prices.
+          </p>
+          <p>
+            <strong>Policy:</strong> Remove tariffs, allow imports, reduce business controls.
+          </p>
+          <p>
+            <strong>Who benefits?</strong> Consumers get choice and lower prices, efficient businesses thrive.
+          </p>
+          <p>
+            <strong>The catch:</strong> Some workers lose jobs, smaller local businesses might struggle, inequality might grow.
+          </p>
         </div>
       </div>
     </section>
 
     <section>
+      <h2 style="text-align: center; margin-bottom: 40px;">Neither Value Is "Wrong"</h2>
       <div class="comparison">
-        <div class="compare-panel quality-zone" data-quality="low">
-          <h3>No Competition</h3>
+        <div class="compare-panel">
+          <h3>Protection Thinking</h3>
           <ul>
-            <li>Poor quality furniture</li>
-            <li>Uncomfortable chairs</li>
-            <li>Bad colours</li>
-            <li>Limited choices</li>
-            <li>Less pressure to improve</li>
+            <li>Values: Stability, fairness, supporting communities</li>
+            <li>Question: Why should workers lose jobs for cheaper goods?</li>
+            <li>Risk: Becomes inefficient and uncompetitive over time</li>
           </ul>
-          <div class="icon-row">
-            <span class="icon-pill">🪑 dull design</span>
-            <span class="icon-pill">🐢 slow change</span>
-            <span class="icon-pill">🔒 no choice</span>
-          </div>
-
-          <div class="quality-drop-area" id="lowCompetitionDrop"></div>
         </div>
-
-        <div class="compare-panel quality-zone" data-quality="high">
-          <h3>Competition</h3>
+        <div class="compare-panel">
+          <h3>Freedom Thinking</h3>
           <ul>
-            <li>Better quality</li>
-            <li>Lower prices</li>
-            <li>More innovation</li>
-            <li>Better design</li>
-            <li>More pressure to improve</li>
+            <li>Values: Innovation, efficiency, consumer choice</li>
+            <li>Question: Why should consumers pay more to protect inefficient industries?</li>
+            <li>Risk: Some people are left behind without support</li>
           </ul>
-          <div class="icon-row">
-            <span class="icon-pill">✨ innovation</span>
-            <span class="icon-pill">📉 lower prices</span>
-            <span class="icon-pill">🎯 better choices</span>
-          </div>
-
-          <div class="quality-drop-area" id="highCompetitionDrop"></div>
-        </div>
-      </div>
-
-      <div class="card quality-match">
-        <div class="mini-label">Design Challenge</div>
-        <h2>Match the Designs</h2>
-        <p>Drag each product into the competition system above that it best matches. Think carefully: would this product appear in a system with lots of competition and pressure to improve, or in a system with very little competition and less pressure to change?</p>
-
-        <div class="quality-bank">
-          <div class="quality-card" draggable="true" data-quality-card="high">
-            <div>
-              <div class="quality-icon">🏎️</div>
-              High-performance car
-            </div>
-          </div>
-
-          <div class="quality-card" draggable="true" data-quality-card="low">
-            <div>
-              <div class="quality-icon">🚗</div>
-              Cheap unreliable car
-            </div>
-          </div>
-
-          <div class="quality-card" draggable="true" data-quality-card="high">
-            <div>
-              <div class="quality-icon">🪑</div>
-              Ergonomic modern chair
-            </div>
-          </div>
-
-          <div class="quality-card" draggable="true" data-quality-card="low">
-            <div>
-              <div class="quality-icon">🪑</div>
-              Uncomfortable plastic chair
-            </div>
-          </div>
-
-          <div class="quality-card" draggable="true" data-quality-card="high">
-            <div>
-              <div class="quality-icon">📱</div>
-              Fast modern smartphone
-            </div>
-          </div>
-
-          <div class="quality-card" draggable="true" data-quality-card="low">
-            <div>
-              <div class="quality-icon">📟</div>
-              Outdated slow device
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="grid">
-        <div class="image-frame">
-          <img src="origin.jpg" alt="State of Origin image placeholder" onerror="this.style.display='none'">
-          
-        </div>
-        <div class="scoreboard">
-          <div class="score-title">Sports example</div>
-          <div class="score">
-            <div class="team">NSW</div>
-            <div class="versus">VS</div>
-            <div class="team">QLD</div>
-          </div>
-          <p>This is also why New South Wales and Queensland compete so fiercely in rugby league. Competition pushes both sides to improve, creating a better competition overall.</p>
-          <p>Competition can also shape economies and countries.</p>
-        </div>
-      </div>
+    <section style="text-align: center;">
+      <h2>Roger Douglas Believed In Freedom &amp; Efficiency</h2>
+      <p style="max-width: 680px; margin: 20px auto 0;">
+        When he became Finance Minister in 1984, he saw New Zealand as <strong>over-protected and inefficient</strong>. He believed opening the economy to competition would make New Zealand stronger, even though some people would struggle in the transition.
+      </p>
     </section>
-
-    <section>
-      <div class="card">
-        <div class="mini-label">Reflection</div>
-        <h2>Can Competition Go Too Far?</h2>
-        <p>Competition can be powerful, but it is not perfect. Competition can create stress. Some people may be left behind. It can also create winners and losers.</p>
-        <p>That is why systems still need fairness, support, and clear rules. Competition can drive improvement, but people also need help to take part properly.</p>
-        <div class="choice-grid">
-          <div class="hover-card">
-            <strong>Stress</strong><br><span>Too much pressure can make people anxious.</span>
-
-            <div class="reflection-link">
-              <div class="reflection-label">Possible effect</div>
-              <div class="reflection-example">
-                <span>School pressure increases</span>
-                <span class="reflection-arrow">→</span>
-                <span>Mental health can become worse</span>
-              </div>
-
-              <div class="reflection-stat">
-                Studies in many countries show rising anxiety and stress levels among young people linked to academic and social pressure.
-              </div>
-
-              <div class="reflection-match">
-                <div class="reflection-bank">
-                  <div class="reflection-card" draggable="true" data-reflection="stress">Mental health pressures</div>
-                  <div class="reflection-card" draggable="true" data-reflection="wrong">Lower food prices</div>
-                </div>
-
-                <div class="reflection-drop" data-reflect-zone="stress">
-                  Match the correct effect here
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hover-card">
-            <strong>Winners and losers</strong><br><span>Some people or groups may fall behind.</span>
-
-            <div class="reflection-link">
-              <div class="reflection-label">Possible effect</div>
-              <div class="reflection-example">
-                <span>Unequal access to opportunities</span>
-                <span class="reflection-arrow">→</span>
-                <span>Growing inequality between groups</span>
-              </div>
-
-              <div class="reflection-stat">
-                In New Zealand, Māori communities are statistically more likely to experience lower incomes, poorer housing, and reduced access to healthcare compared with many Pākehā communities.
-              </div>
-
-              <div class="reflection-match">
-                <div class="reflection-bank">
-                  <div class="reflection-card" draggable="true" data-reflection="inequality">Growing inequality</div>
-                  <div class="reflection-card" draggable="true" data-reflection="wrong">Better WiFi speeds</div>
-                </div>
-
-                <div class="reflection-drop" data-reflect-zone="inequality">
-                  Match the correct effect here
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hover-card">
-            <strong>Fairness</strong><br><span>Rules are needed so competition is not harmful.</span>
-
-            <div class="reflection-link">
-              <div class="reflection-label">Example</div>
-              <div class="reflection-example">
-                <span>Supermarket duopoly</span>
-                <span class="reflection-arrow">→</span>
-                <span>Higher vegetable prices</span>
-              </div>
-
-              <div class="reflection-stat">
-                If only a few companies control a market, prices can stay high because there is less competition forcing prices down.
-              </div>
-
-              <div class="reflection-match">
-                <div class="reflection-bank">
-                  <div class="reflection-card" draggable="true" data-reflection="fairness">High prices with little competition</div>
-                  <div class="reflection-card" draggable="true" data-reflection="wrong">Longer holidays</div>
-                </div>
-
-                <div class="reflection-drop" data-reflect-zone="fairness">
-                  Match the correct effect here
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hover-card">
-            <strong>Support</strong><br><span>People need help to improve, not just pressure.</span>
-
-            <div class="reflection-link">
-              <div class="reflection-label">School example</div>
-              <div class="reflection-example">
-                <span>Students struggling with reading</span>
-                <span class="reflection-arrow">→</span>
-                <span>Extra teacher support and tutoring</span>
-              </div>
-
-              <div class="reflection-stat">
-                Improvement usually happens best when challenge is combined with support, guidance, and access to resources.
-              </div>
-
-              <div class="reflection-match">
-                <div class="reflection-bank">
-                  <div class="reflection-card" draggable="true" data-reflection="support">Extra help improves outcomes</div>
-                  <div class="reflection-card" draggable="true" data-reflection="wrong">More random results</div>
-                </div>
-
-                <div class="reflection-drop" data-reflect-zone="support">
-                  Match the correct effect here
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="mini-label">Student tasks</div>
-      <h2>Activities</h2>
-      <div class="activities">
-        <div class="activity">
-          <div class="activity-number">1</div>
-          <h3>Match the vocab</h3>
-          <p>Match each key word to its correct meaning: competition, challenge, mechanism, oversight, efficiency, innovation, demand, and supply.</p>
-        </div>
-        <div class="activity">
-          <div class="activity-number">2</div>
-          <h3>Competition or Oversight?</h3>
-          <p>Read examples from schools, sport, and business. Decide whether improvement is being driven by competition or by oversight.</p>
-        </div>
-        <div class="activity">
-          <div class="activity-number">3</div>
-          <h3>Debate AI Challenge</h3>
-          <p><strong>Does competition always improve things?</strong> Speak your answer into the page or type it below. Your response will be scored out of 100 based on your use of evidence and vocabulary from the lesson.</p>
-
-          <div class="debate-ai">
-            <div class="debate-controls">
-              <button class="debate-btn" id="startSpeechBtn">🎤 Start Speaking</button>
-              <button class="debate-btn" id="stopSpeechBtn">⏹ Stop</button>
-              <button class="debate-btn" id="scoreDebateBtn">📊 Score My Answer</button>
-            </div>
-
-            <div class="mic-status" id="micStatus">
-              Mic tip: this works best in Chrome or Edge and usually needs the page to be opened from HTTPS or localhost. If it does not work, students can type instead.
-            </div>
-
-            <div class="debate-text" id="debateResponse" contenteditable="true">
-              Type or speak your debate response here...
-            </div>
-
-            <div class="debate-score">
-              <div>
-                <strong>Debate Score</strong>
-                <div id="debateFeedback">Use vocabulary like competition, mechanism, oversight, innovation, fairness, support, and improvement.</div>
-
-                <div class="vocab-used" id="vocabUsed"></div>
-              </div>
-
-              <div class="debate-number" id="debateScore">0</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="send-work-panel">
-        <div class="mini-label">Send my work to my teacher</div>
-        <h2>Export Your Answers</h2>
-        <p>Enter your details, then download your work as a CSV file. This file can be opened in Google Sheets or emailed to your teacher.</p>
-
-        <div class="student-details">
-          <input id="studentName" type="text" placeholder="Student name">
-          <input id="studentClass" type="text" placeholder="Class / Room">
-          <input id="teacherEmail" type="email" placeholder="Teacher email optional">
-        </div>
-
-        <div class="export-buttons">
-          <button class="export-btn" id="previewWorkBtn">👀 Preview My Work</button>
-          <button class="export-btn" id="downloadCsvBtn">⬇️ Download CSV</button>
-          <button class="export-btn" id="emailWorkBtn">✉️ Open Email</button>
-        </div>
-
-        <div class="export-preview" id="exportPreview">Your exported answers will appear here.</div>
-      </div>
-    </section>
-
-    <section>
-      <div class="big-idea">
-        <h2>The Big Idea</h2>
-        <p>Values are not just personal beliefs. Values such as challenge and competition can also become mechanisms that shape schools, businesses, economies, and entire countries.</p>
-      </div>
-    </section>
-
-    <footer>
-      Roger Douglas Series • Values as a Driver of Change • Manurewa Intermediate
-    </footer>
-  </main>
-  <script>
-    const slider = document.getElementById('competitionSlider');
-    const competitionValue = document.getElementById('competitionValue');
-
-    const scores = [
-      document.getElementById('score1'),
-      document.getElementById('score2'),
-      document.getElementById('score3'),
-      document.getElementById('score4')
-    ];
-
-    const bars = [
-      document.getElementById('bar1'),
-      document.getElementById('bar2'),
-      document.getElementById('bar3'),
-      document.getElementById('bar4')
-    ];
-
-    function updateCompetition() {
-      const value = parseInt(slider.value);
-
-      let level = 'LOW';
-      if (value > 65) level = 'HIGH';
-      else if (value > 35) level = 'MEDIUM';
-
-      competitionValue.textContent = level;
-
-      const baseScores = [70, 67, 64, 60];
-
-      bars.forEach((bar, index) => {
-        const attendance = baseScores[index] + Math.floor(value * 0.3);
-        bar.style.width = attendance + '%';
-        scores[index].textContent = attendance + '%';
-      });
-    }
-
-    slider.addEventListener('input', updateCompetition);
-    updateCompetition();
-
-    const builderCards = document.querySelectorAll('.builder-card');
-    const builderZones = document.querySelectorAll('.builder-zone');
-
-    let draggedBuilder = null;
-
-    builderCards.forEach(card => {
-      card.addEventListener('dragstart', () => {
-        draggedBuilder = card;
-      });
-    });
-
-    builderZones.forEach(zone => {
-      zone.addEventListener('dragover', e => {
-        e.preventDefault();
-        zone.classList.add('hovered');
-      });
-
-      zone.addEventListener('dragleave', () => {
-        zone.classList.remove('hovered');
-      });
-
-      zone.addEventListener('drop', e => {
-        e.preventDefault();
-        zone.classList.remove('hovered');
-
-        if (!draggedBuilder) return;
-
-        const correct = zone.dataset.zone;
-        const dragged = draggedBuilder.dataset.builder;
-
-        if (correct === dragged) {
-          zone.classList.add('correct');
-
-          const content = zone.querySelector('.zone-content');
-
-          if (content.textContent === '?') {
-            content.textContent = draggedBuilder.textContent;
-          } else {
-            content.textContent += ' • ' + draggedBuilder.textContent;
-          }
-
-          draggedBuilder.style.opacity = '0.3';
-          draggedBuilder.style.pointerEvents = 'none';
-        } else {
-          zone.style.animation = 'shake 0.3s';
-          setTimeout(() => {
-            zone.style.animation = '';
-          }, 300);
-        }
-      });
-    });
-
-    const sequenceCards = document.querySelectorAll('.sequence-card');
-    const sequenceZones = document.querySelectorAll('.sequence-zone');
-
-    let draggedSequence = null;
-
-    sequenceCards.forEach(card => {
-      card.addEventListener('dragstart', () => {
-        draggedSequence = card;
-      });
-    });
-
-    sequenceZones.forEach(zone => {
-      zone.addEventListener('dragover', e => {
-        e.preventDefault();
-        zone.classList.add('hovered');
-      });
-
-      zone.addEventListener('dragleave', () => {
-        zone.classList.remove('hovered');
-      });
-
-      zone.addEventListener('drop', e => {
-        e.preventDefault();
-        zone.classList.remove('hovered');
-
-        if (!draggedSequence) return;
-
-        const correct = zone.dataset.order;
-        const dragged = draggedSequence.dataset.sequence;
-
-        if (correct === dragged) {
-          zone.classList.add('correct');
-          zone.querySelector('.sequence-content').textContent = draggedSequence.textContent;
-          draggedSequence.style.opacity = '0.3';
-          draggedSequence.style.pointerEvents = 'none';
-        } else {
-          zone.style.animation = 'shake 0.3s';
-          setTimeout(() => {
-            zone.style.animation = '';
-          }, 300);
-        }
-      });
-    });
-
-    const qualityCards = document.querySelectorAll('.quality-card');
-    const qualityZones = document.querySelectorAll('.quality-zone');
-
-    let draggedQuality = null;
-
-    qualityCards.forEach(card => {
-      card.addEventListener('dragstart', () => {
-        draggedQuality = card;
-      });
-    });
-
-    qualityZones.forEach(zone => {
-      zone.addEventListener('dragover', e => {
-        e.preventDefault();
-        zone.classList.add('hovered');
-      });
-
-      zone.addEventListener('dragleave', () => {
-        zone.classList.remove('hovered');
-      });
-
-      zone.addEventListener('drop', e => {
-        e.preventDefault();
-        zone.classList.remove('hovered');
-
-        if (!draggedQuality) return;
-
-        const correct = zone.dataset.quality;
-        const dragged = draggedQuality.dataset.qualityCard;
-
-        if (correct === dragged) {
-          zone.classList.add('correct');
-
-          const dropArea = zone.querySelector('.quality-drop-area');
-          const item = document.createElement('div');
-          item.className = 'dropped-item';
-          item.textContent = draggedQuality.textContent.trim();
-          dropArea.appendChild(item);
-
-          draggedQuality.style.opacity = '0.3';
-          draggedQuality.style.pointerEvents = 'none';
-        } else {
-          zone.style.animation = 'shake 0.3s';
-          setTimeout(() => {
-            zone.style.animation = '';
-          }, 300);
-        }
-      });
-    });
-
-    const reflectionCards = document.querySelectorAll('.reflection-card');
-    const reflectionDrops = document.querySelectorAll('.reflection-drop');
-
-    let draggedReflection = null;
-
-    reflectionCards.forEach(card => {
-      card.addEventListener('dragstart', () => {
-        draggedReflection = card;
-      });
-    });
-
-    reflectionDrops.forEach(drop => {
-      drop.addEventListener('dragover', e => {
-        e.preventDefault();
-        drop.classList.add('hovered');
-      });
-
-      drop.addEventListener('dragleave', () => {
-        drop.classList.remove('hovered');
-      });
-
-      drop.addEventListener('drop', e => {
-        e.preventDefault();
-        drop.classList.remove('hovered');
-
-        if (!draggedReflection) return;
-
-        const correct = drop.dataset.reflectZone;
-        const dragged = draggedReflection.dataset.reflection;
-
-        if (correct === dragged) {
-          drop.classList.add('correct');
-          drop.textContent = draggedReflection.textContent;
-          draggedReflection.style.opacity = '0.3';
-          draggedReflection.style.pointerEvents = 'none';
-        } else {
-          drop.style.animation = 'shake 0.3s';
-          setTimeout(() => {
-            drop.style.animation = '';
-          }, 300);
-        }
-      });
-    });
-
-    const debateResponse = document.getElementById('debateResponse');
-    const debateScore = document.getElementById('debateScore');
-    const debateFeedback = document.getElementById('debateFeedback');
-    const vocabUsed = document.getElementById('vocabUsed');
-    const scoreDebateBtn = document.getElementById('scoreDebateBtn');
-    const startSpeechBtn = document.getElementById('startSpeechBtn');
-    const stopSpeechBtn = document.getElementById('stopSpeechBtn');
-    const micStatus = document.getElementById('micStatus');
-
-    const debateVocab = [
-      'competition',
-      'challenge',
-      'mechanism',
-      'oversight',
-      'efficiency',
-      'improvement',
-      'economy',
-      'innovation',
-      'demand',
-      'supply',
-      'fairness',
-      'support'
-    ];
-
-    scoreDebateBtn.addEventListener('click', () => {
-      const text = debateResponse.textContent.toLowerCase();
-
-      let score = 20;
-      let usedWords = [];
-
-      debateVocab.forEach(word => {
-        if (text.includes(word)) {
-          score += 6;
-          usedWords.push(word);
-        }
-      });
-
-      if (text.includes('because')) score += 8;
-      if (text.includes('however')) score += 8;
-      if (text.length > 250) score += 10;
-      if (text.includes('example')) score += 8;
-
-      if (score > 100) score = 100;
-
-      debateScore.textContent = score;
-
-      if (score > 85) {
-        debateFeedback.textContent = 'Excellent use of vocabulary, reasoning, and balanced argument.';
-      } else if (score > 65) {
-        debateFeedback.textContent = 'Good response. Try adding more evidence and key vocabulary.';
-      } else {
-        debateFeedback.textContent = 'Try using more lesson vocabulary and explaining your ideas in greater detail.';
-      }
-
-      vocabUsed.innerHTML = '';
-
-      usedWords.forEach(word => {
-        const chip = document.createElement('div');
-        chip.className = 'vocab-chip';
-        chip.textContent = word;
-        vocabUsed.appendChild(chip);
-      });
-    });
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    if (SpeechRecognition) {
-      const recognition = new SpeechRecognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = 'en-NZ';
-
-      let finalTranscript = '';
-      let isListening = false;
-
-      startSpeechBtn.addEventListener('click', () => {
-        try {
-          finalTranscript = debateResponse.textContent.includes('Type or speak') ? '' : debateResponse.textContent + ' ';
-          recognition.start();
-          isListening = true;
-          startSpeechBtn.textContent = '🎙️ Listening...';
-          micStatus.textContent = 'Listening now. Speak your answer, then press Stop.';
-          micStatus.className = 'mic-status good';
-        } catch (error) {
-          micStatus.textContent = 'The microphone is already running, or the browser blocked it. Press Stop, then try again.';
-          micStatus.className = 'mic-status bad';
-        }
-      });
-
-      stopSpeechBtn.addEventListener('click', () => {
-        recognition.stop();
-        isListening = false;
-        startSpeechBtn.textContent = '🎤 Start Speaking';
-        micStatus.textContent = 'Speech stopped. You can now score your answer or edit the text.';
-        micStatus.className = 'mic-status';
-      });
-
-      recognition.onresult = event => {
-        let interimTranscript = '';
-
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const transcript = event.results[i][0].transcript;
-
-          if (event.results[i].isFinal) {
-            finalTranscript += transcript + ' ';
-          } else {
-            interimTranscript += transcript;
-          }
-        }
-
-        debateResponse.textContent = finalTranscript + interimTranscript;
-      };
-
-      recognition.onend = () => {
-        if (isListening) {
-          try {
-            recognition.start();
-          } catch (error) {
-            isListening = false;
-            startSpeechBtn.textContent = '🎤 Start Speaking';
-          }
-        } else {
-          startSpeechBtn.textContent = '🎤 Start Speaking';
-        }
-      };
-
-      recognition.onerror = event => {
-        isListening = false;
-        startSpeechBtn.textContent = '🎤 Start Speaking';
-
-        if (event.error === 'not-allowed') {
-          micStatus.textContent = 'Microphone permission was blocked. Click the lock icon near the address bar and allow microphone access.';
-        } else if (event.error === 'no-speech') {
-          micStatus.textContent = 'No speech was detected. Try again and speak clearly after pressing Start Speaking.';
-        } else if (event.error === 'network') {
-          micStatus.textContent = 'Speech recognition needs browser/network support. Typing will still work.';
-        } else {
-          micStatus.textContent = 'The microphone did not start properly. Try Chrome/Edge, HTTPS, or type your answer instead.';
-        }
-
-        micStatus.className = 'mic-status bad';
-      };
-    } else {
-      startSpeechBtn.disabled = true;
-      stopSpeechBtn.disabled = true;
-      startSpeechBtn.textContent = '🎤 Mic not supported';
-      micStatus.textContent = 'This browser does not support built-in speech recognition. Students can still type their answer and score it.';
-      micStatus.className = 'mic-status bad';
-    }
-
-    const studentName = document.getElementById('studentName');
-    const studentClass = document.getElementById('studentClass');
-    const teacherEmail = document.getElementById('teacherEmail');
-    const previewWorkBtn = document.getElementById('previewWorkBtn');
-    const downloadCsvBtn = document.getElementById('downloadCsvBtn');
-    const emailWorkBtn = document.getElementById('emailWorkBtn');
-    const exportPreview = document.getElementById('exportPreview');
-
-    function getText(selector) {
-      const element = document.querySelector(selector);
-      return element ? element.textContent.trim() : '';
-    }
-
-    function getAllText(selector) {
-      return Array.from(document.querySelectorAll(selector)).map(item => item.textContent.trim()).filter(Boolean).join(' | ');
-    }
-
-    function csvSafe(value) {
-      return '"' + String(value || '').replace(/"/g, '""') + '"';
-    }
-
-    function collectWork() {
-      const completedSymbolMatches = Array.from(document.querySelectorAll('.symbol-target.correct .symbol-label')).map(item => item.textContent.trim()).join(' | ');
-      const mechanismValue = document.querySelector('[data-zone="value"] .zone-content')?.textContent.trim() || '';
-      const mechanismAction = document.querySelector('[data-zone="mechanism"] .zone-content')?.textContent.trim() || '';
-      const mechanismOutcome = document.querySelector('[data-zone="outcome"] .zone-content')?.textContent.trim() || '';
-      const sequenceStep1 = document.querySelector('[data-order="step1"] .sequence-content')?.textContent.trim() || '';
-      const sequenceStep2 = document.querySelector('[data-order="step2"] .sequence-content')?.textContent.trim() || '';
-      const sequenceStep3 = document.querySelector('[data-order="step3"] .sequence-content')?.textContent.trim() || '';
-      const noCompetitionItems = document.getElementById('lowCompetitionDrop')?.textContent.trim() || '';
-      const competitionItems = document.getElementById('highCompetitionDrop')?.textContent.trim() || '';
-      const reflectionMatches = Array.from(document.querySelectorAll('.reflection-drop.correct')).map(item => item.textContent.trim()).join(' | ');
-
-      return {
-        date: new Date().toLocaleString(),
-        name: studentName.value.trim(),
-        classRoom: studentClass.value.trim(),
-        page: 'Values as a Driver of Change',
-        competitionDial: slider.value,
-        competitionLevel: competitionValue.textContent,
-        vocabSymbolMatches: completedSymbolMatches,
-        mechanismValue,
-        mechanismAction,
-        mechanismOutcome,
-        sequenceStep1,
-        sequenceStep2,
-        sequenceStep3,
-        noCompetitionItems,
-        competitionItems,
-        reflectionMatches,
-        debateAnswer: debateResponse.textContent.trim(),
-        debateScore: debateScore.textContent,
-        debateFeedback: debateFeedback.textContent.trim(),
-        vocabUsed: getAllText('.vocab-chip')
-      };
-    }
-
-    function buildCsv() {
-      const work = collectWork();
-      const headers = Object.keys(work);
-      const values = Object.values(work);
-      return headers.map(csvSafe).join(',') + '\n' + values.map(csvSafe).join(',');
-    }
-
-    function previewWork() {
-      const work = collectWork();
-      exportPreview.textContent = Object.entries(work).map(([key, value]) => `${key}: ${value}`).join('\n');
-    }
-
-    previewWorkBtn.addEventListener('click', previewWork);
-
-    downloadCsvBtn.addEventListener('click', () => {
-      const csv = buildCsv();
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      const safeName = (studentName.value.trim() || 'student').replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      link.href = url;
-      link.download = `${safeName}_values_driver_of_change.csv`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-      previewWork();
-    });
-
-    emailWorkBtn.addEventListener('click', () => {
-      const work = collectWork();
-      const subject = encodeURIComponent('Values as a Driver of Change - Student Work');
-      const body = encodeURIComponent(Object.entries(work).map(([key, value]) => `${key}: ${value}`).join('\n'));
-      const to = encodeURIComponent(teacherEmail.value.trim());
-      window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-    });
-
-    function shuffleElements(containerSelector, itemSelector) {
-      const container = document.querySelector(containerSelector);
-      if (!container) return;
-
-      const items = Array.from(container.querySelectorAll(itemSelector));
-
-      for (let i = items.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [items[i], items[j]] = [items[j], items[i]];
-      }
-
-      items.forEach(item => container.appendChild(item));
-    }
-
-    shuffleElements('#vocabBank', '.drag-word');
-    shuffleElements('#symbolBank', '.symbol-target');
-
-    const dragWords = document.querySelectorAll('.drag-word');
-    const symbolTargets = document.querySelectorAll('.symbol-target');
-
-    let draggedWord = null;
-
-    dragWords.forEach(word => {
-      word.addEventListener('dragstart', () => {
-        draggedWord = word;
-      });
-    });
-
-    symbolTargets.forEach(target => {
-      target.addEventListener('dragover', e => {
-        e.preventDefault();
-        target.classList.add('hovered');
-      });
-
-      target.addEventListener('dragleave', () => {
-        target.classList.remove('hovered');
-      });
-
-      target.addEventListener('drop', e => {
-        e.preventDefault();
-        target.classList.remove('hovered');
-
-        if (!draggedWord) return;
-
-        const correctMatch = target.dataset.match;
-        const draggedMatch = draggedWord.dataset.word;
-
-        if (correctMatch === draggedMatch) {
-          target.classList.add('correct');
-          target.querySelector('.symbol-label').textContent = 'Correct: ' + draggedMatch;
-          draggedWord.style.opacity = '0.35';
-          draggedWord.style.pointerEvents = 'none';
-        } else {
-          target.style.animation = 'shake 0.3s';
-          setTimeout(() => {
-            target.style.animation = '';
-          }, 300);
-        }
-      });
-    });
-  </script>
+  </div>
 </body>
 </html>
